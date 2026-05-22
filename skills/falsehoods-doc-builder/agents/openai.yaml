@@ -1,0 +1,9 @@
+interface:
+  display_name: "Falsehoods Doc Builder"
+  short_description: "Build consolidated 'falsehoods programmers believe about X' reference docs in ~/dev/me/falsehoods — research sources, synthesize via a cheap model, regenerate, restyle, or fan out to new topics. Repo-local workflow."
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  brand_color: "#C2410C"
+  default_prompt: "Use the falsehoods-doc-builder skill."
+policy:
+  allow_implicit_invocation: true

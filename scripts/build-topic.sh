@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
-# build-topic.sh <slug> [--dry-run] [--model MODEL] [--force]
+# build-topic.sh <slug> [--dry-run] [--model MODEL] [--format FMT] [--force]
 # Fetches sources for a topic, synthesizes via agent, writes topics/<slug>.md
+#
+# Adjustable knobs (no need to edit this script):
+#   --model   any agent shorthand or OpenRouter id (default: kimi-2.6)
+#   --format  selects prompts/<format>.md as the synthesis instruction (default: reference-doc)
+#   prompts/system.md       the writer's voice/persona
+#   prompts/<format>.md     the structure + rules, with {{TITLE}} {{HOOK}} {{SOURCE_COUNT}} placeholders
+#   topics.json             the curated source map
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -8,28 +15,38 @@ ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 TOPICS_JSON="$ROOT/topics.json"
 TOPICS_DIR="$ROOT/topics"
 SOURCES_DIR="$ROOT/sources"
+PROMPTS_DIR="$ROOT/prompts"
 
 SLUG=""
 DRY_RUN=0
 FORCE=0
 MODEL="kimi-2.6"
+FORMAT="reference-doc"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --dry-run)  DRY_RUN=1; shift ;;
-    --force)    FORCE=1; shift ;;
-    --model)    MODEL="$2"; shift 2 ;;
-    --model=*)  MODEL="${1#*=}"; shift ;;
-    -*)         echo "Unknown option: $1" >&2; exit 2 ;;
-    *)          SLUG="$1"; shift ;;
+    --dry-run)   DRY_RUN=1; shift ;;
+    --force)     FORCE=1; shift ;;
+    --model)     MODEL="$2"; shift 2 ;;
+    --model=*)   MODEL="${1#*=}"; shift ;;
+    --format)    FORMAT="$2"; shift 2 ;;
+    --format=*)  FORMAT="${1#*=}"; shift ;;
+    -*)          echo "Unknown option: $1" >&2; exit 2 ;;
+    *)           SLUG="$1"; shift ;;
   esac
 done
 
 if [[ -z "$SLUG" ]]; then
-  echo "Usage: build-topic.sh <slug> [--dry-run] [--model MODEL] [--force]" >&2
+  echo "Usage: build-topic.sh <slug> [--dry-run] [--model MODEL] [--format FMT] [--force]" >&2
   echo "Available slugs: $(python3 -c "import json; d=json.load(open('$TOPICS_JSON')); print(', '.join(d.keys()))")" >&2
+  echo "Available formats: $(ls "$PROMPTS_DIR" 2>/dev/null | grep -v '^system.md$' | sed 's/\.md$//' | tr '\n' ' ')" >&2
   exit 1
 fi
+
+SYSTEM_FILE="$PROMPTS_DIR/system.md"
+FORMAT_FILE="$PROMPTS_DIR/$FORMAT.md"
+if [[ ! -f "$SYSTEM_FILE" ]]; then echo "Missing $SYSTEM_FILE" >&2; exit 1; fi
+if [[ ! -f "$FORMAT_FILE" ]]; then echo "Unknown format '$FORMAT' (no $FORMAT_FILE)" >&2; exit 1; fi
 
 # --- Load topic metadata ---
 TITLE=$(python3 -c "import json; d=json.load(open('$TOPICS_JSON')); print(d['$SLUG']['title'])")
@@ -40,6 +57,7 @@ echo "=== Building: $TITLE ==="
 echo "    hook: $HOOK"
 echo "    sources: $SOURCE_COUNT"
 echo "    model: $MODEL"
+echo "    format: $FORMAT"
 echo ""
 
 # --- Fetch sources ---
@@ -204,32 +222,13 @@ if [[ -f "$OUT_FILE" && "$FORCE" -eq 0 ]]; then
 fi
 
 # --- Synthesis via agent ---
-SYSTEM_PROMPT="You are a technical writer producing a single clean reference document. Follow the structure below exactly. Be concrete: keep specific examples, real names, real edge-cases, real numbers. Lead with the most surprising, jaw-dropping falsehoods. Be approachable and readable — this is for engineers who will share it. No preamble, no closing remarks. Do NOT write a Sources or References section — that will be appended separately."
+# Prompts live in prompts/ so they can be workshopped without touching this script.
+# system.md = voice; <format>.md = structure + rules with {{TITLE}} {{HOOK}} {{SOURCE_COUNT}}.
+SYSTEM_PROMPT=$(cat "$SYSTEM_FILE")
+SYNTHESIS_PROMPT=$(SOURCE_COUNT="$SOURCE_COUNT" TITLE="$TITLE" HOOK="$HOOK" \
+  python3 -c "import os,sys; t=open('$FORMAT_FILE').read(); print(t.replace('{{SOURCE_COUNT}}',os.environ['SOURCE_COUNT']).replace('{{TITLE}}',os.environ['TITLE']).replace('{{HOOK}}',os.environ['HOOK']))")
 
-SYNTHESIS_PROMPT="You have been given $(echo "$SOURCE_COUNT") sources on the topic: $TITLE.
-
-Synthesize ALL of them into ONE clean, complete markdown document using EXACTLY this structure:
-
-# $TITLE
-
-> $HOOK
-
-## The Big Surprises
-List 6–10 of the most jaw-dropping, counterintuitive falsehoods as punchy bullet points. These are the headline 'oh my gosh' moments — the ones that make someone say 'I had no idea'.
-
-## Where It Gets Complicated
-Group the long tail of subtler falsehoods into named sub-sections (### headings). For each point include a brief explanation and at least one concrete example (real person names, real places, real edge-cases from the sources). Deduplicate across sources — if multiple sources cover the same point, keep the most vivid explanation and example. Cover every significant point from every source.
-
-## If You Build This
-3–6 practical takeaways: what to actually do, what library/standard to use, what assumptions to never make.
-
-Rules:
-- Merge and deduplicate across all sources — produce ONE document, not 4 summaries stapled together.
-- Preserve concrete examples: if a source mentions 'Björk' or 'Mr. Null' or 'King of Tokyo' or a W3C script example, keep it.
-- Do NOT write a Sources or References section.
-- No preamble, no closing remarks. Start directly with the # heading."
-
-echo "=== Calling $MODEL for synthesis ==="
+echo "=== Calling $MODEL for synthesis (format: $FORMAT) ==="
 RESULT=$(~/.claude/bin/agent "$MODEL" --file "$PACKET" --max-tokens 16000 --timeout 600 \
   --system "$SYSTEM_PROMPT" \
   "$SYNTHESIS_PROMPT")
@@ -247,8 +246,10 @@ PY
 )
 
 mkdir -p "$TOPICS_DIR"
+# Strip any leading whitespace/blank lines the model may emit before the # heading.
+CLEAN_RESULT=$(printf '%s' "$RESULT" | python3 -c "import sys; print(sys.stdin.read().lstrip())")
 {
-  echo "$RESULT"
+  echo "$CLEAN_RESULT"
   echo "$SOURCES_MD"
 } > "$OUT_FILE"
 

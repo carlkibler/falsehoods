@@ -1,101 +1,86 @@
- # Falsehoods About Names
+# Falsehoods About Names
 
 > Your name model is wrong, and it's wrong in ways that hurt real people.
 
 ## The Big Surprises
 
-- **Some people do not have a name at all.** There are individuals for whom no string of characters serves as an identifier, yet they still need to rent apartments, receive medical care, and pay taxes.
-- **A person's legal name can be six different strings, and systems will accept none of them.** Patrick McKenzie acknowledges six distinct "full" names as correct, while John Graham-Cumming has been told his name contains "invalid characters."
-- **The last name "Null" is a denial-of-service attack on corporate IT.** Technology journalist Christopher Null has spent years locked out of Bank of America email (which rejects `null@media.com`), receives American Express mail addressed only to "Mr.," and watches websites crash because his surname matches a reserved programming token.
-- **Björk does not have a family name.** The Icelandic singer's second name, Guðmundsdóttir, is a patronymic describing her father's given name plus her gender; her father is Guðmundur Gunnarsson (son of Gunnar). Phone books in Iceland sort by given name.
-- **A single Japanese name can be read in multiple ways, and you cannot algorithmically know which.** The characters 東海林賢蔵 may be pronounced Tōkairin or Shōji; four different kanji (庄司, 庄子, 東海林, 小路) can all be romanized as Shōji, losing critical identity information.
-- **Only the children in a Hispanic family may share the same "family" name.** When Manuel A. Pérez Quiñones (son of Pérez Rodríguez and Quiñones Alamo) married someone with apellidos Padilla Falto, she became Padilla de Pérez, and their children were Pérez Padilla—meaning the parents do not share a name with each other or with their own parents.
-- **In Vietnam, the Prime Minister is formally called "Mr. Dũng," not "Mr. Nguyễn."** Nguyễn Tấn Dũng's family name comes first, but in formal address you use the given name—while in China, Mao Ze Dong's generational name Ze is shared with his siblings and expected in full references.
-- **"First name" and "last name" are meaningless in many cultures.** Southern Indians, Malays, and Indonesians may have only a single given name with no patronym or family name at all, while Brazilians can carry three or four family names (e.g., José Eduardo Santos Tavares Melo Silva).
-- **You cannot losslessly transform or normalize a name.** There is no algorithm that maps names into a canonical form and back again, except the identity function.
+- **Some people have no name at all.** It is not universally true that every human possesses a name — there are real individuals for whom the concept simply does not apply, and any required "name" field instantly breaks.
+
+- **"First name" and "last name" are meaningless concepts in entire countries.** In Iceland, telephone directories sort by given name because there are no inherited family names — only patronymics like Björk Guðmundsdóttir — while in parts of Indonesia and Malaysia many people have a single given name and nothing else.
+
+- **A person's legal surname can be a system-killing reserved word.** Technology journalist Christopher Null has spent years battling forms that reject his last name as empty data; Bank of America once blacklisted his entire nullmedia.com domain after a system upgrade, and American Express routinely addresses him as simply "Mr." after dropping "Null" from the label.
+
+- **The same written name can be pronounced completely differently even by native speakers.** The Japanese name 東海林賢蔵 might be read as Tōkairin or Shōji, and four distinct kanji combinations can all be romanized as Shōji — making sorting and search impossible without a separate phonetic field.
+
+- **Marriage does not create a shared family name, and "maiden name" is a parochial assumption.** In Hispanic naming, a couple may be Padilla de Pérez and Pérez Quiñones while their children are Pérez Padilla; in China, wives keeping their own name is standard, and men sometimes take their wife's name too.
+
+- **There is no such thing as a single "canonical" full name — including yours.** Patrick McKenzie acknowledges six different full names as correct, and John Graham-Cumming's system once rejected his last name for containing "invalid characters" that were, in fact, perfectly valid.
+
+- **Millions of people can share the exact same name, and it is not a database edge case.** The assumption that names are "almost globally unique" collapses immediately in places like Vietnam, where Nguyễn is extraordinarily common, and no amount of additional fields fixes the collision problem.
 
 ## Where It Gets Complicated
 
-### One Person Can Have Many Correct Names
+### Names Are Not Fixed, Singular, or Atomic
 
-**People have exactly one canonical full name.** Patrick McKenzie answers to six different correct full names, depending on the context. John Graham-Cumming has had systems reject his name outright for containing supposedly invalid characters.
+People do not have exactly one canonical full name. Patrick McKenzie will acknowledge as correct any of six different "full" names, and he has broken every professional system he has been introduced to. You also cannot assume a person has exactly one name they go by, or exactly N names for any value of N — some have one, some have many, and some have no name at all.
 
-**People have exactly one name they go by, and it does not change.** Names shift over time and for reasons beyond marriage. In the family described by Manuel A. Pérez Quiñones, apellidos morphed from Pérez Rodríguez and Quiñones Alamo into Pérez Quiñones, then Padilla de Pérez, then Pérez Padilla across a single generation.
+Names change, but not only at the enumerated events you might expect (marriage, divorce, legal petition). They are not necessarily assigned at birth, or within a year, or within five. The assumption that everyone receives a name shortly after being born is simply wrong.
 
-**Names are assigned at birth, or at least pretty close to it.** McKenzie notes this assumption collapses for people whose names are assigned much later, or who change their names repeatedly throughout life.
+The idea that people have a "first name" and "last name" that are different by necessity fails globally. In China, Japan, Korea, and Hungary, the family name comes first: in 毛泽东, Mao is the family name and Ze Dong is the given name, with Ze being a generational name shared by his siblings (毛泽民, 毛泽覃, 毛泽紅). Spanish-speaking people commonly carry two family names, as in María José Carreño Quiñones; Brazilians may carry three or four, such as José Eduardo Santos Tavares Melo Silva, and may insert particles like *de* or *e* between them. The order itself shifts: Spanish names tend toward paternal+maternal, while Portuguese names in Brazil may be maternal+paternal.
 
-**Two different systems containing data about the same person will use the same name.** McKenzie has seen systems fail to reconcile the same individual because the names differ. Even two careful data entry operators will not necessarily produce bitwise equivalent strings for the same person.
+In Iceland, there are no inherited family names in the Western sense. Björk Guðmundsdóttir is the daughter of Guðmundur Gunnarsson; the second part is a patronymic, not a surname, and Icelanders expect to be called by their given name — telephone directories sort by given name. Patronymics appear elsewhere: Malays use *bin* or *binti* (Isa bin Osman), and Russians use a patronymic as a middle name (Boris Nikolayevich Yeltsin).
 
-**People’s names are globally unique, or diverse enough that no million people share the same name.** They are not. Common names in populous countries routinely reach millions of bearers.
+Some cultures construct names from village, father, caste, or religious reference. The Kerala name Velikkakathu Sankaran Achuthanandan is usually written V. S. Achuthanandan (familyName-fathersName-givenName). The Indian name Kogaddu Birappa Timappa Nair follows villageName-fathersName-givenName-lastName. The Arabic name Abu Karim Muhammad al-Jamil ibn Nidal ibn Abdulaziz al-Filistini layers parenthood, geography, and religion into a single string.
 
-### Not Everyone Has a Family Name
+Even when a name looks structurally familiar, address rules diverge. In Vietnam, Nguyễn Tấn Dũng is formally referred to as Mr. Dũng, not Mr. Nguyễn. Chinese people interacting with Westerners may adopt additional given names, so Yao Ming might write himself as Fred Yao Ming or Fred Ming Yao, introducing yet more variation for the same person.
 
-**People have a last name or family name shared by relatives.** Icelanders like Björk Guðmundsdóttir use a patronymic (Guðmundsdóttir = daughter of Guðmundur), not a family name. Her father is Guðmundur Gunnarsson (son of Gunnar). Telephone directories in Iceland are sorted by given name, and Björk would not expect to be called Ms. Guðmundsdóttir.
+### Characters, Case, and the Limits of Text
 
-**People have exactly N names, for any value of N.** In parts of Southern India, Malaysia, and Indonesia, many people have only a single given name with no patronym or family name whatsoever. If you require a family name, users in these cultures often enter garbage like "." or "Mr." just to escape the form.
+People's names are not written in ASCII. They are not written in any single character set, and they are not all mapped in Unicode code points. Even names encountered in English may contain non-ASCII characters, such as Zoë.
 
-**Members of the same family share the same family name.** In China, wives typically keep their own name after marriage. If the Malay girl Zaiton married Isa bin Osman, she might remain Mrs. Zaiton or become Zaiton Isa. In some Hispanic families, only the children share the same apellidos. Men sometimes take their wife’s name on marriage, which is why "Previous name" is more accurate than "Maiden name" or "née."
+Case is not a safe axis for manipulation. Names like **McNamara** contain capital letters that are not the first letter; others like **van der Waals** contain words that are intentionally not capitalized. Normalizing to Title Case or lowercasing for storage destroys correct representations. Names also appear in ALL CAPS and in all lower case, legitimately.
 
-**"First name" and "last name" are meaningful distinctions everywhere.** For someone like Isa bin Osman, "bin" simply means "son of." In Malaysia, he might be addressed as Encik Isa, not Mr. Osman.
+They can contain numbers. They can contain punctuation such as hyphens and apostrophes. Spaces may belong inside a single name — Rose Marie may be considered one name, not two. Prefixes like *de*, *von*, and suffixes like *Jr.* are part of the name and cannot be safely ignored.
 
-### The Order and Number of Name Parts Varies Wildly
+And don't assume a single-letter name is an initial. People do have names that are one letter long; forms that block submission on "minimum length" create garbage data like "." or "Mr." as users fight their way through validation. In particular, do not assume that a four-character Japanese name in UTF-8 will fit in four bytes — you are likely to actually need 12.
 
-**People’s names have a consistent global order.** In Chinese, 毛泽东 is family name Mao, generational name Ze, given name Dong; his siblings share Ze (毛泽民, 毛泽覃, 毛泽紅). Chinese names have no spaces. Among non-familiar contacts he is 毛泽东先生 or 毛先生; familiar contacts might use 泽东, not just 东. Japanese, Korean, and Hungarian also put family name first. A slightly less formal Russian order puts family name first: Ельцина Наина Иосифовна.
+### Software Assumptions That Eat People
 
-**People have exactly one family name.** Spanish-speaking people commonly have two family names (María José Carreño Quiñones, paternal Carreño + maternal Quiñones). Brazilians may have three or four (José Eduardo Santos Tavares Melo Silva), and Portuguese names often use maternal+paternal order rather than paternal+maternal. Particles like de or e appear between names (Carreño de Quiñones, Tavares e Silva).
+Christopher Null's last name is a reserved string in many programming languages. Software frequently uses "null" to ensure a data field is not empty, so forms reject his name, crash, or loop back insisting the field is blank. His workarounds include typing "Null." with a period, or combining his middle name with his last name. American Express drops "Null" from mailing labels, addressing him simply as "Mr." Bank of America went further: after a system upgrade, it could not handle the string "null" anywhere in his email domain, blocking all of nullmedia.com and forcing him to switch to Gmail.
 
-**Middle initials follow the same rules everywhere.** Americans like John Q. Public use a middle initial for a given name. Filipinos like Maria J. Go use a middle initial for the mother’s maiden name before marriage (Jimenez), and that single initial may represent multiple names such as Dela Cruz.
+There is no algorithm that transforms names and can be reversed losslessly, short of returning the input unchanged. Two different systems containing data about the same person will often use different names for that person. Two different data entry operators, given the same name, will not necessarily enter bitwise-equivalent strings, even on a well-designed system.
 
-**People’s first and last names are, by necessity, different.** Russian patronymics and family names change endings by gender: Boris Nikolayevich Yeltsin vs. Naina Iosifovna Yeltsina.
+People whose names break your system are not weird outliers who should have had solid, acceptable names like 田中太郎. The insistence that your system will never need to handle names from China, Japan, Korea, Ireland, the United Kingdom, the United States, Spain, Mexico, Brazil, Peru, Russia, Sweden, Botswana, South Africa, Trinidad, Haiti, France, or the Klingon Empire is wrong — all of these have "weird" naming schemes in common use. And if you maintain a dictionary of bad words, it probably contains someone's real name.
 
-### One Text Field Cannot Capture a Name
+### Titles, Gender, and Formality
 
-**A single "full name" field is enough for everyone.** Many names carry information that cannot be flattened into one string without loss. The Arabic name Abu Karim Muhammad al-Jamil ibn Nidal ibn Abdulaziz al-Filistini encodes lineage, titles, and geography. Indian names like Kogaddu Birappa Timappa Nair (village-father-given-last) or Aditya Pratap Singh Chauhan (given-father-surname-caste) or Madurai Mani Iyer (town-given-caste) embed location and caste.
+Russian names inflect for gender. The wife of Boris Nikolayevich Yeltsin is Naina Iosifovna Yeltsina; her patronymic and family name both take feminine *-a* endings, even though the patronymic derives from her father.
 
-**Nicknames are derived from formal names.** In Thailand, former prime minister Thaksin Shinawatra goes by the nickname Maew (แม้ว), used in all non-formal situations and often introduced to Westerners because it is easier to pronounce.
+Middle initials mean different things in different places. Americans often write John Q. Public, but in the Philippines a middle initial represents the mother's maiden name before marriage: in Maria J. Go, the J stands for Jimenez, and an initial may represent more than one name (D for Dela Cruz). Brits may have multiple middle names but do not typically initialize them the way Americans do.
 
-**A single letter name is just an initial.** Some people have legal names that are one letter long. Forms that refuse single-letter names block real users.
+Titles and formality are not universal. In the UK, contacting a stranger by given name implies you have previously met. In Germany, titles stack: Herr Professor Doktor Schmidt. In Japan, honorifics attach to names (Tanaka-san, Tanaka-sama, or Tanaka-bucho for a department head). In Thailand, people commonly use short nicknames in informal settings — former prime minister Thaksin Shinawatra goes by Maew (แม้ว), and will introduce himself to Westerners with that nickname.
 
-**Japanese names sort like Western names.** Because ideographic characters can have multiple pronunciations, 東海林賢蔵 may be read as Tōkairin or Shōji. Four different kanji (庄司, 庄子, 東海林, 小路) can all be romanized as Shōji. Japanese users commonly need a separate phonetic kana field just so the system can sort and retrieve their names correctly.
+Because conventions vary, do not require a title field. If you are using Mr./Mrs./Ms. to infer gender, ask for gender directly — and remember that titles around the world vary significantly. On forms, ask for "Previous name" rather than "Maiden name" or "née"; men take their wife's name in some cultures, and in China wives normally keep their own name. Members of the same family may not share a family name at all. In the Hispanic example given by Manuel A. Pérez Quiñones, his parents' apellidos were Pérez Rodríguez and Quiñones Alamo. He married Padilla Falto; she became Padilla de Pérez, and their children were Pérez Padilla — so only the siblings share the same apellidos.
 
-**You can defer complexity by localizing forms per culture.** If you centralize data from multiple locales into one database, localized form layouts only postpone the pain. The underlying storage still needs to handle Icelandic patronymics, Chinese generational names, and Arabic lineages in the same table.
+### Sorting and Display
 
-### Writing Systems and Case Are Not Uniform
+Alphabetical order is not a universal constant. Icelandic and Thai telephone directories sort by given name, not family name. In the Spanish-speaking world, María José Carreño Quiñones might expect to find herself under Carreño in one region and Quiñones in another. Name particles such as *von*, *de*, and *van* may or may not be significant for sorting, depending on the locale.
 
-**People’s names are written in ASCII, or in any single character set, or all mapped in Unicode code points.** Even English names use non-ASCII characters (Zoë). If you accept names in native script, you need UTF-8 end-to-end; a four-character Japanese name in UTF-8 can require 12 bytes.
-
-**People’s names are case sensitive, or case insensitive.** Both assumptions are wrong. Names like McNamara contain mid-word capitals, and van der Waals contains lowercase particles. Coercing names to Title Case destroys them.
-
-**People’s names do not contain numbers, are not written in ALL CAPS, are not written in all lower case, and do not have prefixes or suffixes.** These formats all exist in real data. Prefixes like de, von, and Jnr/Jr are integral to the name and cannot be safely stripped.
-
-**You can algorithmically normalize a name and reverse it losslessly.** McKenzie notes that no such algorithm exists; the only lossless transformation is the identity function.
-
-### "Null" and Bad Words Are Not the Only Landmines
-
-**A dictionary of bad words contains no people’s names.** Filters meant to block profanity often catch legitimate names.
-
-**The name "Null" is safe to store in a string field.** Christopher Null routinely watches websites crash, forms reject his name as blank, and databases corrupt his record because "null" is a reserved token. Bank of America blocked his email `null@media.com` entirely after an upgrade, and American Express sends him mail addressed to "Mr." or "Media LLC" after dropping his surname. His workaround is adding a period: "Null."
-
-**Systems can safely split, parse, or auto-format names.** Implied "n" optimization (v-card / h-card) fails on Chinese family-first names. Auto-parsing Spanish or Portuguese multi-part names without cultural knowledge misidentifies which portion is the family name.
-
-### Sorting and Addressing Differ by Culture
-
-**Names sort by family name everywhere.** Thai and Icelandic telephone directories sort by given name, not family name. Spanish sorting conventions vary by region: María José Carreño Quiñones may expect to be found under Carreño Quiñones or under Quiñones. Prefixes like von, de, and van are sometimes significant for sorting and sometimes ignored.
-
-**Formality is uniform.** In the UK, addressing a stranger by given name implies you have already met. In Germany, titles accumulate: Herr Professor Doktor Schmidt. In Japan, coworkers expect Tanaka-bucho (Department-head Tanaka) or Tanaka-san; attaching -san to a given name in the workplace is unusual. Vietnamese Prime Minister Nguyễn Tấn Dũng is formally Mr. Dũng, not Mr. Nguyễn.
-
-### Titles, Gender, and Marital Status
-
-**You need a title to address someone correctly.** Many people do not use titles at all. If you require Mr./Mrs./Ms. to guess gender, you force women to reveal marital status while men do not, and you fail non-binary users. Titles vary globally (Encik, Herr Professor Doktor, -san) and do not reliably indicate gender.
+Japanese names present a special retrieval problem. Ideographic characters can have multiple pronunciations: the family name in 東海林賢蔵 may be read Tōkairin or Shōji. Worse, different kanji can share the same pronunciation — 庄司, 庄子, 東海林, and 小路 all romanize as Shōji. Because automatic sorting and retrieval are typically pronunciation-based, Japanese people commonly provide a phonetic version in kana. Without that extra field, your search index is essentially guessing.
 
 ## If You Build This
 
-- **Prefer a single "full name" field.** If you absolutely need to split names, ask for the specific fragment you need—such as "What should we call you?"—rather than using "first name" and "last name," which are meaningless in many cultures.
-- **Use UTF-8 in every layer.** The database, the backend, and the frontend must all speak Unicode. A four-character Japanese name can require 12 bytes, and English names still contain non-ASCII characters like Zoë.
-- **Store exactly what the user types.** Do not coerce case (McNamara, van der Waals), strip punctuation or spaces (de, von, Jnr), or auto-parse into fixed columns. The only lossless transformation is the identity function.
-- **Never use reserved strings as stand-ins for "empty."** Treating "Null" as a sentinel value will lock out real people, crash forms, and corrupt mailing lists. Validate inputs as user data, not programming tokens.
-- **Ask for a display name and a sort key separately.** If you need to address someone informally or sort a list, ask how they prefer to be called and provide a phonetic field—especially for Japanese kanji, Thai, Icelandic, and Spanish multi-part names.
-- **Drop mandatory titles and gender inference.** Do not require Mr./Mrs./Ms., and replace "Maiden name" with "Previous name." Titles vary globally and do not reliably indicate gender or marital status.
+- **Use a single full-name field unless you have a hard requirement to split it.** Asking for "given name" and "family name" already fails for Icelanders, Indonesians, and anyone with only one name. If you must atomize, avoid the labels "first name" and "last name," and add an extra field asking **"What should we call you?"** — this covers Thai nicknames like Maew, Japanese honorific norms, and the fact that Vietnamese prime ministers are Mr. Dũng, not Mr. Nguyễn.
+
+- **Accept everything the user types, preserve its casing, and use UTF-8 everywhere.** That means UTF-8 in the page, the database, and every layer between. Do not normalize case — **McNamara** and **van der Waals** depend on it. Allow spaces, hyphens, apostrophes, and particles like *de* and *von*. Do not require a family name; do not reject single-character names as initials. And do not assume a four-character Japanese name in UTF-8 fits in four bytes — you are likely to need 12.
+
+- **Never use a name as a unique identifier, and never assume two systems will agree on the spelling.** There is no lossless parsing algorithm. Data entry operators will produce different strings for the same person. Plan for collisions, aliases, and phonetic fields — especially for Japanese names, where you need a kana pronunciation field to sort and search reliably because the same kanji can be read as **Tōkairin** or **Shōji**.
+
+- **Scrub your reserved-word and profanity filters against real names.** If your system treats **"Null"** as empty data, or if your bad-word list blocks real people, you are the bug. Test against names from the cultures you think you don't serve — because you do, even if only via ex-pats, immigrants, and edge cases.
+
+- **Ask for "Previous name," not "Maiden name," and make titles optional.** Men change names on marriage too, and not all cultures follow the Western default. If you need to know how to address someone, ask directly rather than inferring from a title dropdown that forces a German honorific or an American marital-status choice.
+
+- **If you localize forms, remember the database still has to hold the world.** Even within a single country you will find foreigners, multiple ethnic groups (Singaporeans may have Chinese, Malay, or Tamil names), and regional variation. Localized layouts defer complexity; they do not eliminate it. Centralized storage must accommodate every variation you allowed locally.
 
 ## Sources
 
