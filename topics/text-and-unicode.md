@@ -135,7 +135,7 @@ It contains invisible semantic-only characters (the invisible times in `a⁢b` t
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [The Absolute Minimum About Unicode (Joel Spolsky)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/) · [archived copy](../archive/text-and-unicode/01-the-absolute-minimum-about-unicode-joel-spolsky.md)
 - [Falsehoods about Plain Text (Jeremy Hussell)](https://jeremyhussell.blogspot.com/2017/11/falsehoods-programmers-believe-about.html) · [archived copy](../archive/text-and-unicode/02-falsehoods-about-plain-text-jeremy-hussell.md)

@@ -54,6 +54,6 @@ Pick an encoding assumption and the universe has a counterexample. CSVs are *not
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about CSVs (Donat Studios)](https://donatstudios.com/Falsehoods-Programmers-Believe-About-CSVs) · [archived copy](../archive/csvs/01-falsehoods-about-csvs-donat-studios.md)

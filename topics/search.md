@@ -79,6 +79,6 @@ What you index is as much a problem as how you query it.
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Search (OpenSource Connections)](https://opensourceconnections.com/blog/2019/05/29/falsehoods-programmers-believe-about-search/) · [archived copy](../archive/search/01-falsehoods-about-search-opensource-connections.md)

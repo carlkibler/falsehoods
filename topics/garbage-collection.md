@@ -60,6 +60,6 @@ Underneath all of it is one trade-off, pause time versus throughput. A batch pro
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about garbage collection (Paul Bone)](https://paul.bone.id.au/blog/2018/10/19/gc-falsehoods/) · [archived copy](../archive/garbage-collection/01-falsehoods-about-garbage-collection-paul-bone.md)

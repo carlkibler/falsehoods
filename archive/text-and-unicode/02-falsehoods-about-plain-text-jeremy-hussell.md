@@ -5,6 +5,8 @@
 > **Archived for preservation.** This is a Markdown-extracted copy of the original, saved here in case it disappears from the web. Formatting and images are not preserved — please refer to the original (linked above) for the version as the author intended it.
 >
 > With gratitude to the author for compiling these notes, ideas, and facts.
+>
+> If you're the author and would rather this copy not live here, just ask and I'll remove it — but this work is so valuable and appreciated that I hope a fully-credited preserved copy is welcome.
 
 ---
 

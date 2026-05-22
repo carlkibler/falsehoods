@@ -140,7 +140,7 @@ A flight is not a simple, stable, unique thing.
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Aviation (FlightAware)](https://flightaware.engineering/falsehoods-programmers-believe-about-aviation/) · [archived copy](../archive/transportation/01-falsehoods-about-aviation-flightaware.md)
 - [Falsehoods about Airline Seat Maps (Duffel)](https://duffel.com/blog/falsehoods-about-seat-maps) · [archived copy](../archive/transportation/02-falsehoods-about-airline-seat-maps-duffel.md)

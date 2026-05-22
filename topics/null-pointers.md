@@ -64,6 +64,6 @@ The integer "address" exposed by casts need not match the in-memory bit pattern,
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about null pointers (purplesyringa)](https://purplesyringa.moe/blog/falsehoods-programmers-believe-about-null-pointers/) · [archived copy](../archive/null-pointers/01-falsehoods-about-null-pointers-purplesyringa.md)

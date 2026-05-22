@@ -104,7 +104,7 @@ Two-digit years are not safely assumed to fall in 1900–2099.
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Time (Noah Sussman)](http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time) · [archived copy](../archive/dates-and-time/01-falsehoods-about-time-noah-sussman.md)
 - [More Falsehoods about Time (Noah Sussman)](http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time) · [archived copy](../archive/dates-and-time/02-more-falsehoods-about-time-noah-sussman.md)

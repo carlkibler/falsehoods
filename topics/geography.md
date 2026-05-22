@@ -100,7 +100,7 @@
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Geography (wiesmann)](https://wiesmann.codiferes.net/wordpress/archives/15187) · [archived copy](../archive/geography/01-falsehoods-about-geography-wiesmann.md)
 - [Falsehoods about Maps (atlefren)](http://www.atlefren.net/post/2014/09/falsehoods-programmers-believe-about-maps/) · [archived copy](../archive/geography/02-falsehoods-about-maps-atlefren.md)

@@ -138,7 +138,7 @@ Valid link `rel` values include `.ico`, `.gif`, `.png`, `.jpg`, `.svg`, `.tiff`,
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about HTML (aartaka)](https://www.aartaka.me.eu.org/falsehoods-html) · [archived copy](../archive/web/01-falsehoods-about-html-aartaka.md)
 - [Falsehoods about REST APIs (slinkp)](http://slinkp.com/falsehoods-programmers-believe-about-apis.html) · [archived copy](../archive/web/02-falsehoods-about-rest-apis-slinkp.md)

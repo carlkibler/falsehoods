@@ -81,6 +81,6 @@ Coherence is a guarantee much real-world code (and many memory models) depend on
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Myths about CPU Caches (Rajiv Prabhakar)](https://software.rajivprab.com/2018/04/29/myths-programmers-believe-about-cpu-caches/) · [archived copy](../archive/cpu-caches/01-myths-about-cpu-caches-rajiv-prabhakar.md)

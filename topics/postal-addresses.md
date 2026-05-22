@@ -126,7 +126,7 @@ The assumption that a building has one clean, unique, numeric identifier dissolv
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Addresses (mjt.me.uk)](https://www.mjt.me.uk/posts/falsehoods-programmers-believe-about-addresses/) · [archived copy](../archive/postal-addresses/01-falsehoods-about-addresses-mjt-me-uk.md)
 - [UK Address Oddities (Paul Plowman)](https://paulplowman.com/stuff/uk-address-oddities/) · [archived copy](../archive/postal-addresses/02-uk-address-oddities-paul-plowman.md)

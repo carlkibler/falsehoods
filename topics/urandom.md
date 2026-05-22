@@ -75,6 +75,6 @@ FreeBSD's model is the cleaner design: no /dev/random vs /dev/urandom distinctio
 - **If you truly want /dev/random for long-lived GPG/SSL/SSH keys, fine** — a few seconds of typing won't hurt. Just don't impose that blocking on anything else, and know it's belt-and-suspenders, not a real security upgrade.
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Myths about /dev/urandom (Thomas Hühn)](https://www.2uo.de/myths-about-urandom) · [archived copy](../archive/urandom/01-myths-about-dev-urandom-thomas-h-hn.md)

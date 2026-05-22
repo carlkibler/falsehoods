@@ -68,6 +68,6 @@ Temperature is the canonical trap. Converting 20 °C to Kelvin for an *absolute*
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Systems of Measurement (Steve Moser)](https://www.stevemoser.org/posts/dev/falsehoods-programmers-believe-about-systems-of-measurement.html) · [archived copy](../archive/systems-of-measurement/01-falsehoods-about-systems-of-measurement-steve-mose.md)

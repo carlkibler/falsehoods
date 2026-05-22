@@ -78,7 +78,7 @@ Data centers became extremely unpopular in 2025, and energy/water figures get qu
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods Vibe Coders Believe About LLMs (Wilson Hobbs)](https://wilsonhobbs.com/blog/2025-05-31-falsehoods-vibe-coders) · [archived copy](../archive/ai/01-falsehoods-vibe-coders-believe-about-llms-wilson-h.md)
 - [2025: The Year in LLMs (Simon Willison)](https://simonwillison.net/2025/Dec/31/the-year-in-llms/) · [archived copy](../archive/ai/02-2025-the-year-in-llms-simon-willison.md)

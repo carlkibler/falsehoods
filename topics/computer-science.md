@@ -144,7 +144,7 @@ The lesson generalizes: before you build policy or software around a category �
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods CS students believe (netmeister)](https://www.netmeister.org/blog/cs-falsehoods.html) · [archived copy](../archive/computer-science/01-falsehoods-cs-students-believe-netmeister.md)
 - [Falsehoods about computer science (srk21)](https://www.cs.kent.ac.uk/people/staff/srk21/blog/2019/12/02/) · [archived copy](../archive/computer-science/02-falsehoods-about-computer-science-srk21.md)

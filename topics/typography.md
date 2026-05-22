@@ -135,7 +135,7 @@
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Fonts (RoelN)](https://github.com/RoelN/Font-Falsehoods) · [archived copy](../archive/typography/01-falsehoods-about-fonts-roeln.md)
 - [Truths programmers should know about case (James Bennett)](https://www.b-list.org/weblog/2018/nov/26/case/) · [archived copy](../archive/typography/02-truths-programmers-should-know-about-case-james-be.md)

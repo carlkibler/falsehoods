@@ -94,7 +94,7 @@ Most of these only bite if you touch consensus, the mempool, or the EVM directly
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Bitcoin (spring-boot-bitcoin)](https://github.com/theborakompanioni/spring-boot-bitcoin-starter/blob/master/docs/FALSEHOODS.md) · [archived copy](../archive/cryptocurrency/01-falsehoods-about-bitcoin-spring-boot-bitcoin.md)
 - [Falsehoods about Cryptocurrencies (spalladino)](https://gist.github.com/spalladino/a349f0ca53dbb5fc3914243aaf7ea8c6) · [archived copy](../archive/cryptocurrency/02-falsehoods-about-cryptocurrencies-spalladino.md)

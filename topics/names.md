@@ -126,7 +126,7 @@ Titles also reveal marital status for women (*Miss/Mrs./Ms.*) but not for men �
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Names (Patrick McKenzie)](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/) · [archived copy](../archive/names/01-falsehoods-about-names-patrick-mckenzie.md)
 - [Falsehoods about Names — With Examples (Shine Solutions)](https://shinesolutions.com/2018/01/08/falsehoods-programmers-believe-about-names-with-examples/) · [archived copy](../archive/names/02-falsehoods-about-names-with-examples-shine-solutio.md)

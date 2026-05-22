@@ -71,7 +71,7 @@ The classic Windows path limit was 260 characters, still enforced by many apps; 
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Myths about File Paths (Yakking)](https://yakking.branchable.com/posts/falsehoods-programmers-believe-about-file-paths/) · [archived copy](../archive/file-paths/01-myths-about-file-paths-yakking.md)
 - [The weird world of Windows file paths (Fileside)](https://www.fileside.app/blog/2023-03-17_windows-file-paths/) · [archived copy](../archive/file-paths/02-the-weird-world-of-windows-file-paths-fileside.md)

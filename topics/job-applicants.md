@@ -86,6 +86,6 @@ A single position is rarely the atomic unit forms assume it to be.
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Job Applicants (creatrixtiara)](https://medium.com/@creatrixtiara/falsehoods-programmers-believe-about-job-applicants-99280437c616) · [archived copy](../archive/job-applicants/01-falsehoods-about-job-applicants-creatrixtiara.md)

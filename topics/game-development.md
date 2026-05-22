@@ -92,6 +92,6 @@ The structure of the problem is the lesson. A feature that sounds like a one-lin
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [The Door Problem (Liz England)](https://lizengland.com/blog/2014/04/the-door-problem/) · [archived copy](../archive/game-development/01-the-door-problem-liz-england.md)

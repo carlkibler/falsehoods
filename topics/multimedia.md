@@ -141,7 +141,7 @@ Track count is also not a reasonable small integer. Nine Inch Nails' *Broken* ha
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Video (haasn)](https://haasn.xyz/posts/2016-12-25-falsehoods-programmers-believe-about-%5Bvideo-stuff%5D.html) · [archived copy](../archive/multimedia/01-falsehoods-about-video-haasn.md)
 - [Horrible edge cases when dealing with music (dustri)](https://dustri.org/b/horrible-edge-cases-to-consider-when-dealing-with-music.html) · [archived copy](../archive/multimedia/02-horrible-edge-cases-when-dealing-with-music-dustri.md)

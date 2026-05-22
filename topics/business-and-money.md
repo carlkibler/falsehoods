@@ -112,7 +112,7 @@ A cluster of assumptions that quietly shape software design and are simply false
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Prices (wiesmann)](https://wiesmann.codiferes.net/wordpress/archives/22201) · [archived copy](../archive/business-and-money/01-falsehoods-about-prices-wiesmann.md)
 - [Falsehoods about Economics (exple.tive)](http://exple.tive.org/blarg/2016/09/22/falsehoods-programmers-believe-about-economics/) · [archived copy](../archive/business-and-money/02-falsehoods-about-economics-exple-tive.md)

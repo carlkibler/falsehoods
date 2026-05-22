@@ -97,7 +97,9 @@ ARCHIVE_NOTE = (
     "> **Archived for preservation.** This is a Markdown-extracted copy of the original, "
     "saved here in case it disappears from the web. Formatting and images are not preserved — "
     "please refer to the original (linked above) for the version as the author intended it.\n>\n"
-    "> With gratitude to the author for compiling these notes, ideas, and facts."
+    "> With gratitude to the author for compiling these notes, ideas, and facts.\n>\n"
+    "> If you're the author and would rather this copy not live here, just ask and I'll remove it — "
+    "but this work is so valuable and appreciated that I hope a fully-credited preserved copy is welcome."
 )
 
 class HTMLCleaner(HTMLParser):
@@ -248,7 +250,9 @@ for i, src in enumerate(sources):
 with open(sources_section_path, "w") as sf:
     sf.write("\n## Sources\n\n")
     sf.write("Consolidated from the works below. Each is linked to its original and to a "
-             "Markdown copy archived in this repo for preservation; please visit the originals.\n\n")
+             "Markdown copy archived in this repo for preservation; please visit the originals. "
+             "Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — "
+             "but it's so valuable and appreciated that I hope a credited copy here is acceptable.\n\n")
     for label, url, base in manifest:
         if base:
             sf.write(f"- [{label}]({url}) · [archived copy](../archive/{slug}/{base})\n")

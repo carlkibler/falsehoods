@@ -102,6 +102,6 @@ Other arcana that round out the picture: directives, `?` introducing a complex m
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [The YAML document from hell (Ruud van Asseldonk)](https://ruudvanasseldonk.com/2023/01/11/the-yaml-document-from-hell) · [archived copy](../archive/yaml/01-the-yaml-document-from-hell-ruud-van-asseldonk.md)

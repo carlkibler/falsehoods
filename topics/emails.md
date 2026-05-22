@@ -118,7 +118,7 @@ The domain part follows standard DNS rules and is legitimately case-insensitive,
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Email (beesbuzz)](https://beesbuzz.biz/code/439-Falsehoods-programmers-believe-about-email) · [archived copy](../archive/emails/01-falsehoods-about-email-beesbuzz.md)
 - [I Knew How to Validate an Email Until I Read the RFC (Haacked)](https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx/) · [archived copy](../archive/emails/02-i-knew-how-to-validate-an-email-until-i-read-the-r.md)

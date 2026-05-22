@@ -72,7 +72,7 @@ The hardest falsehood is that a creative work can be *fully written down* in any
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Art (literateprogrammer)](https://literateprogrammer.blogspot.com/2016/07/falsehoods-programmers-believe-about.html) · [archived copy](../archive/art/01-falsehoods-about-art-literateprogrammer.md)
 - [Programmer Misconceptions about Art (Artsy)](http://artsy.github.io/blog/2018/04/18/programmer-misconceptions-about-art/) · [archived copy](../archive/art/02-programmer-misconceptions-about-art-artsy.md)

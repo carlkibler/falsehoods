@@ -54,6 +54,6 @@ The Big Surprises above are the *what*. This is the *why* — the mechanisms tha
 
 ## Sources
 
-Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals. Authors: if you'd rather your archived copy not live here, just ask and I'll remove it — but it's so valuable and appreciated that I hope a credited copy here is acceptable.
 
 - [Falsehoods about Versions (xenoterracide)](https://github.com/xenoterracide/falsehoods/blob/master/versions.md) · [archived copy](../archive/versions/01-falsehoods-about-versions-xenoterracide.md)
