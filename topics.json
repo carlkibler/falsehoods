@@ -20,5 +20,49 @@
         "url": "https://www.wired.com/2015/11/null/"
       }
     ]
+  },
+  "postal-addresses": {
+    "title": "Falsehoods About Postal Addresses",
+    "hook": "An address isn't a string, isn't a location, and sometimes isn't even necessary.",
+    "sources": [
+      {
+        "label": "Falsehoods about Addresses (mjt.me.uk)",
+        "url": "https://www.mjt.me.uk/posts/falsehoods-programmers-believe-about-addresses/"
+      },
+      {
+        "label": "UK Address Oddities (Paul Plowman)",
+        "url": "https://paulplowman.com/stuff/uk-address-oddities/"
+      },
+      {
+        "label": "Parsing the Infamous Japanese Postal CSV (dampfkraft)",
+        "url": "https://www.dampfkraft.com/posuto.html"
+      },
+      {
+        "label": "Why doesn't Costa Rica use real addresses?",
+        "url": "https://www.crcdaily.com/p/why-doesnt-costa-rica-use-real-addresses"
+      }
+    ]
+  },
+  "dates-and-time": {
+    "title": "Falsehoods About Dates and Time",
+    "hook": "Time isn't a line, a time zone isn't an offset, and the clock can run backwards.",
+    "sources": [
+      {
+        "label": "Falsehoods about Time (Noah Sussman)",
+        "url": "http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time"
+      },
+      {
+        "label": "More Falsehoods about Time (Noah Sussman)",
+        "url": "http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time"
+      },
+      {
+        "label": "Falsehoods about Time and Time Zones (Creative Deletion)",
+        "url": "https://www.creativedeletion.com/2015/01/28/falsehoods-programmers-date-time-zones.html"
+      },
+      {
+        "label": "Falsehoods about Unix Time (Alex Chan)",
+        "url": "https://alexwlchan.net/2019/05/falsehoods-programmers-believe-about-unix-time/"
+      }
+    ]
   }
 }

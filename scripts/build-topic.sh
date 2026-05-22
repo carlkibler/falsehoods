@@ -3,11 +3,17 @@
 # Fetches sources for a topic, synthesizes via agent, writes topics/<slug>.md
 #
 # Adjustable knobs (no need to edit this script):
-#   --model   any agent shorthand or OpenRouter id (default: kimi-2.6)
+#   --model   any agent shorthand or OpenRouter id (default: sonnet)
 #   --format  selects prompts/<format>.md as the synthesis instruction (default: reference-doc)
 #   prompts/system.md       the writer's voice/persona
 #   prompts/<format>.md     the structure + rules, with {{TITLE}} {{HOOK}} {{SOURCE_COUNT}} placeholders
 #   topics.json             the curated source map
+#
+# Division of labor: source RESEARCH/discovery uses cheap deterministic tooling
+# (propose-topic.py, curl|pandoc). The SYNTHESIS/writing wants a strong, high-
+# cohesion model — cheap models get disordered on multi-source packets long
+# before their advertised context limit. Default is sonnet; use --model opus or
+# --frontier for max quality, --model kimi-2.6 to economize on simple topics.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -20,7 +26,7 @@ PROMPTS_DIR="$ROOT/prompts"
 SLUG=""
 DRY_RUN=0
 FORCE=0
-MODEL="kimi-2.6"
+MODEL="sonnet"
 FORMAT="reference-doc"
 
 while [[ $# -gt 0 ]]; do
@@ -84,22 +90,36 @@ sources = topic["sources"]
 MAX_SOURCE_CHARS = 40000  # ~10k tokens each; enough for any blog post
 
 class HTMLCleaner(HTMLParser):
-    """Strip nav/footer/script/style bloat; keep article prose."""
-    SKIP = {'script','style','nav','header','footer','aside','noscript','form','button','select','option','iframe','svg','figure','figcaption','img'}
-    BLOCK = {'p','li','h1','h2','h3','h4','h5','h6','article','section','main','blockquote','pre','code','dt','dd','th','td'}
+    """Strip nav/footer/script/style bloat; keep article prose.
+
+    Void elements (img, br, hr, …) have NO closing tag, so they must never
+    change nesting depth — otherwise a single <img> in the SKIP set strands
+    the depth counter and silently suppresses ALL following content. (Real bug:
+    it killed every image-bearing blog post.)
+    """
+    SKIP = {'script','style','nav','header','footer','aside','noscript','form','button','select','option','iframe','svg','figure','figcaption'}
+    VOID = {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}
+    BLOCK = {'p','li','h1','h2','h3','h4','h5','h6','article','section','main','blockquote','pre','dt','dd','th','td','tr','div'}
 
     def __init__(self):
-        super().__init__()
+        super().__init__(convert_charrefs=True)
         self.depth = 0
         self.parts = []
 
     def handle_starttag(self, tag, attrs):
+        if tag in self.VOID:
+            return
         if tag in self.SKIP:
             self.depth += 1
         elif self.depth == 0 and tag in self.BLOCK:
             self.parts.append('\n')
 
+    def handle_startendtag(self, tag, attrs):
+        return  # explicit self-closed (<img/>, <br/>) — never affects depth
+
     def handle_endtag(self, tag):
+        if tag in self.VOID:
+            return
         if tag in self.SKIP:
             self.depth = max(0, self.depth - 1)
         elif self.depth == 0 and tag in self.BLOCK:
@@ -229,7 +249,9 @@ SYNTHESIS_PROMPT=$(SOURCE_COUNT="$SOURCE_COUNT" TITLE="$TITLE" HOOK="$HOOK" \
   python3 -c "import os,sys; t=open('$FORMAT_FILE').read(); print(t.replace('{{SOURCE_COUNT}}',os.environ['SOURCE_COUNT']).replace('{{TITLE}}',os.environ['TITLE']).replace('{{HOOK}}',os.environ['HOOK']))")
 
 echo "=== Calling $MODEL for synthesis (format: $FORMAT) ==="
-RESULT=$(~/.claude/bin/agent "$MODEL" --file "$PACKET" --max-tokens 16000 --timeout 600 \
+# Dense topics can produce long docs; give generous output headroom to avoid
+# mid-sentence truncation (the model silently stops at the token ceiling).
+RESULT=$(~/.claude/bin/agent "$MODEL" --file "$PACKET" --max-tokens 32000 --timeout 600 \
   --system "$SYSTEM_PROMPT" \
   "$SYNTHESIS_PROMPT")
 
@@ -254,5 +276,15 @@ CLEAN_RESULT=$(printf '%s' "$RESULT" | python3 -c "import sys; print(sys.stdin.r
 } > "$OUT_FILE"
 
 echo "  written: $OUT_FILE ($(wc -c < "$OUT_FILE" | tr -d ' ') bytes)"
+
+# Truncation guard: the model silently stops at the token ceiling, leaving the
+# doc cut off mid-sentence with no final section. Flag it so you can rebuild
+# with a higher --max-tokens or trimmed sources rather than ship a partial doc.
+if ! grep -q "## If You Build This" "$OUT_FILE"; then
+  echo ""
+  echo "  ⚠ WARNING: '## If You Build This' section missing — output may be TRUNCATED."
+  echo "    The doc likely hit the output token ceiling. Re-run with more headroom"
+  echo "    (raise --max-tokens in this script) or fewer/smaller sources."
+fi
 echo ""
 echo "Done. Review: topics/$SLUG.md"

@@ -9,10 +9,12 @@ Each document merges the 2–4 best sources on a topic into one complete, readab
 | Doc | Summary |
 |-----|---------|
 | [Names](topics/names.md) | Your name model is wrong, and it's wrong in ways that hurt real people. |
+| [Postal Addresses](topics/postal-addresses.md) | An address isn't a string, isn't a location, and sometimes isn't even necessary. |
+| [Dates and Time](topics/dates-and-time.md) | Time isn't a line, a time zone isn't an offset, and the clock can run backwards. |
 
 ## How These Are Built
 
-Sources are fetched via `curl | pandoc` into per-topic packets (keeping page text out of the orchestrator's context), then synthesized by a cheap model (kimi-2.6) into the consistent template. Reference lists are script-appended — not model-generated — so links are always accurate.
+Sources are fetched via `curl | pandoc` into per-topic packets (keeping page text out of the orchestrator's context), then synthesized into the consistent template by a strong model (default `sonnet`). Cheap/deterministic tooling does the research and fetching; the writing gets a high-cohesion model for quality. Reference lists are script-appended — not model-generated — so links are always accurate.
 
 ```
 scripts/propose-topic.py "Section Name"                  # pull candidate sources from awesome-falsehood

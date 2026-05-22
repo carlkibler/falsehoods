@@ -28,12 +28,19 @@ sources/<slug>/        gitignored cache of fetched source markdown + _packet.md
 
 ## The core insight (read this before changing anything)
 
-The cheap synthesis model (`agent`, OpenRouter) has **no web access**. So the division of labor is fixed and deliberate:
+Two separate principles drive the design:
 
+**1. The fetcher has no web access, so split fetch from synthesis.** The `agent` CLI is a pure LLM completion — it cannot browse. So:
 - **You (the orchestrator)** fetch source pages to disk with `curl | pandoc` so the page text never enters your context — near-zero token cost.
-- **The cheap model** does the token-heavy reading and writing, turning the on-disk packet into a polished doc.
+- **A model** does the token-heavy reading and writing, turning the on-disk packet into a polished doc.
 
-Keep it that way. Don't WebFetch sources into your own context to "help" — that defeats the purpose and burns tokens. The only time you touch a page directly is the Playwright fallback below.
+Don't WebFetch sources into your own context to "help" — that defeats the purpose and burns tokens. The only time you touch a page directly is the Playwright fallback below.
+
+**2. Cheap models for research, strong models for writing.** Use cheap/deterministic tooling for the *discovery* work (source listing via `propose-topic.py`, fetching). But the *synthesis* — merging four messy sources into one coherent, high-quality doc — wants a strong, high-cohesion model. Cheap models get disordered on multi-source packets well before their advertised context window, producing repetition and dropped points. This is a quality task, usually run once per topic, so spend on it:
+- **Default `--model sonnet`** — strong cohesion, the right baseline.
+- **`--model opus` or `--frontier`** — for maximum quality.
+- **`--model kimi-2.6`** — only to economize on a simple/short topic.
+- If a packet is large (many or long sources), prefer a stronger model or trim sources; don't hand a giant packet to a cheap model and hope.
 
 ## Workflow
 
@@ -66,11 +73,13 @@ Confirm each source fetched with a healthy character count and the packet looks 
 ### 3. Build
 
 ```bash
-scripts/build-topic.sh <slug>            # default model kimi-2.6, format reference-doc
+scripts/build-topic.sh <slug>            # default model sonnet, format reference-doc
 scripts/build-topic.sh <slug> --force    # overwrite an existing doc
 ```
 
 The script: fetches each source (3-tier: `curl|pandoc` → thinness check → flag for Playwright), assembles `sources/<slug>/_packet.md`, calls `agent <model> --file packet …` with the externalized prompts, strips any leading whitespace, and appends a **deterministic `## Sources`** list from `topics.json` (never model-generated, so links never hallucinate).
+
+It then runs a **truncation guard**: if the output is missing the final `## If You Build This` section, the model hit its output-token ceiling and the doc is cut off mid-sentence. The script warns; rebuild with a stronger model, more `--max-tokens` headroom (currently 32000), or fewer/smaller sources.
 
 ### 4. Review the output
 
