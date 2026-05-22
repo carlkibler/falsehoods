@@ -8,8 +8,8 @@
 
 - **Search engines work like databases.** They don't. A database matches rows; a search engine tokenizes, analyzes, ranks, and guesses intent. `WHERE title LIKE '%foo%'` will never give you relevance, stemming, or "did you mean?"
 - **`C programming` and `C++ programming` produce different results.** Often they don't — the default tokenizer throws away the `++`, so both queries collapse to `c programming`. Punctuation is meaning, and most analyzers eat it for breakfast.
-- **`401k` and `401(k)` produce the same results.** Often they don't, for the same reason — the parentheses change tokenization. Two strings a human reads as identical can be two completely different tokens to your index.
-- **Customers notice their own misspellings.** They don't, and they fully expect *you* to fix them. Worse: a misspelled word is sometimes a different correctly-spelled word, so "correction" can quietly break a valid query.
+- **`401k` and `401(k)` produce the same results.** Same trap: the parentheses change tokenization, so two strings a human reads as identical become two completely different tokens to your index.
+- **Customers notice their own misspellings.** They don't — and they fully expect *you* to fix them. Worse: a misspelled word is sometimes a different correctly-spelled word, so "correction" can quietly break a valid query.
 - **You can pass the customer query directly into your search engine.** Until someone pastes a whole document into the search bar, leaves a quote unbalanced, types `OR` meaning Oregon, or tries to inject an attack through the box. Every query is hostile input.
 - **The default settings will deliver a good search experience.** Out-of-the-box tokenization, stop words, and ranking are a starting point, not a destination. They are right for *someone's* corpus — almost never yours.
 - **You can build a search that works like Google.** You can't, you shouldn't target it, and customers will compare you to it anyway. One bad result — minor and rare — still reflects on your whole product.
@@ -30,11 +30,10 @@ Tokenization — how text gets chopped into searchable units — is where most "
 
 ### Relevance & Ranking
 
-Returning matches is easy; returning the *right* matches in the *right order* is the entire job.
+Returning matches is easy; returning the *right* matches in the *right order* is the entire job. And when you finally show perfect results, customers won't necessarily notice — or reliably click the thing they wanted. You also can't assume the logs will tell you whether they found it: you have to monitor queries, results, and clicks together, and that logging touches privacy nerves and GDPR. A search should arguably always return *something*, however absurd; empty result pages frustrate users, and "they won't mind zero results" is false.
 
-- When you finally show perfect results, customers won't necessarily notice — and won't reliably click on the thing they wanted.
-- You **cannot** assume that looking at logs tells you whether someone found what they sought. So you must monitor queries, results, and clicks — and respect that this logging touches privacy nerves and GDPR.
-- A search should arguably always return *something*, however absurd — empty result pages frustrate users, and "they won't mind zero results" is false.
+The fancier remedies are no shortcut either:
+
 - **Personalized search is not easy.** Neither is learning-to-rank: it is not "just install a plugin," you probably don't have enough training data, and you may never curate enough over time.
 - **Facets**: Google not using them doesn't mean your customers don't need them. Facet hit counts aren't always correct, facets *do* cost performance, and you can't just cache queries to make them fast.
 
@@ -42,7 +41,7 @@ Returning matches is easy; returning the *right* matches in the *right order* is
 
 Human language refuses to be a clean key-value lookup.
 
-- **Stop words**: you should remove them; you should *not* remove them; you don't actually know what the right list is; and the list changes over time. (And `in` isn't always a stop word — sometimes it's Indiana.)
+- **Stop words**: you should remove them; you should *not* remove them; you don't actually know what the right list is; and the list changes over time. (And `in` isn't always a stop word — sometimes it's Indiana.) The wrong list silently drops meaning some of your users were counting on.
 - **Synonyms** are not easy. They don't always improve recall the way you want, they don't carry the same relevance across all documents, and acronym/abbreviation synonyms misbehave. Extracting them from your corpus with NLP — or with Word2Vec — is not the free win it sounds like.
 - **Stemming will not solve your recall problems.** Neither will lemmatization — and lemmatization dictionaries are not static, because languages change.
 - **NLP tools do not work perfectly**, and folding them into your analysis pipeline is not straightforward. Search queries are usually *not* complete sentences, so part-of-speech tagging on them is unreliable.

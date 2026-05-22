@@ -6,7 +6,7 @@
 
 ## The Big Surprises
 
-- **`ping 167772673` reaches `10.0.2.1`.** An IPv4 address isn't just four dotted octets — it can be written as a single decimal integer, hex (`0xA000201`), octal (`.010` resolves to `.8`), or with omitted octets (`127.1` → `127.0.0.1`). Input filters that block `10.0.2.1` may pass `167772673` right through.
+- **`ping 167772673` reaches `10.0.2.1`.** An IPv4 address isn't just four dotted octets — it can be written as a single decimal integer, hex (`0xA000201`), leading-zero octal (`012` = decimal 10), or with omitted octets (`127.1` → `127.0.0.1`). Input filters that block `10.0.2.1` may pass `167772673` right through.
 
 - **`ping 0` pings `127.0.0.1` on Linux — and `0.0.0.0` (a null route) on macOS.** The same input produces entirely different behavior across OSes. The "obvious" form of an IP address is platform-dependent.
 
@@ -16,7 +16,7 @@
 
 - **`send()` returning success does not mean all your data was sent.** Robert Graham's packet sniffers have caught this in production: partial BASE64 lines appear at email gateways because programmers assume `send()` is all-or-nothing. iPhones continued using expired DHCP leases until 2010 — visible on the wire to anyone sniffing.
 
-- **The Fallacies of Distributed Computing were formalized in 1994 — and engineers are still writing code that violates all eight.** L. Peter Deutsch at Sun Microsystems listed them: the network is reliable; latency is zero; bandwidth is infinite; the network is secure; topology doesn't change; there is one administrator; transport cost is zero; the network is homogeneous. James Gosling added an eighth in 1997. In 2021, Deutsch added a ninth: "The party you are communicating with is trustworthy."
+- **The Fallacies of Distributed Computing were formalized in 1994 — and engineers are still writing code that violates all eight.** They accreted at Sun Microsystems: Bill Joy and Tom Lyon framed the first four, and L. Peter Deutsch consolidated and published a list of seven around 1994 — the network is reliable; latency is zero; bandwidth is infinite; the network is secure; topology doesn't change; there is one administrator; transport cost is zero. James Gosling added the eighth in 1997: the network is homogeneous. Deutsch later added a ninth — "the party you are communicating with is trustworthy."
 
 - **Zero-width spaces (U+200B) are silently stripped from domain names.** `cu%e2%80%8brl.se` resolves to `curl.se`. You can scatter invisible characters throughout a URL and it still works — making malicious URLs that are byte-for-byte different from what they appear to be.
 
@@ -84,7 +84,7 @@ TCP gives you a reliable, ordered byte stream — but the abstractions leak in w
 
 ### Distributed Systems Assumptions
 
-The eight Fallacies of Distributed Computing, codified at Sun Microsystems starting in 1994, remain the canonical list of what engineers get wrong at scale:
+The eight Fallacies of Distributed Computing, assembled at Sun Microsystems — seven published by Deutsch around 1994, the eighth added by Gosling in 1997 — remain the canonical list of what engineers get wrong at scale:
 
 1. **The network is reliable** — it isn't; design for partial failure.
 2. **Latency is zero** — it isn't; unbounded traffic assumptions cause dropped packets.
@@ -95,7 +95,7 @@ The eight Fallacies of Distributed Computing, codified at Sun Microsystems start
 7. **Transport cost is zero** — it isn't; hidden build-and-maintain costs must appear in budgets.
 8. **The network is homogeneous** — it isn't; mixed hardware, OS, and protocol stacks are the norm.
 
-A ninth was added later: **the party you are communicating with is trustworthy** — an extension of the security fallacy beyond the physical network boundary.
+Deutsch later added a ninth: **the party you are communicating with is trustworthy** — an extension of the security fallacy beyond the physical network boundary.
 
 In 2020, Mark Richards and Neal Ford added three more for modern distributed systems: **versioning is simple**, **compensating updates always work**, and **observability is optional**.
 

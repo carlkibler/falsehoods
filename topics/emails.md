@@ -10,7 +10,7 @@
 
 - **`'\*+-/=?^_\`{\|}~#$@netmeister.org` is a real, working email address.** All those characters are explicitly allowed in the local part by RFC5321/5322. You can actually email the author of that RFC explainer at that address — if your mail client will let you.
 
-- **Email addresses are case-sensitive — on the left side.** The RFC *mandates* that the local part MUST be treated as case-sensitive. `Jschauma@netmeister.org` and `jschauma@netmeister.org` do not have to go to the same mailbox. (The domain part follows DNS rules and is case-insensitive, so only the right half is safe to lowercase.)
+- **Email addresses are case-sensitive — on the left side.** RFC5321 says the local part MUST be treated as case-sensitive, while warning that relying on case differences hurts interoperability. So `Jschauma@netmeister.org` and `jschauma@netmeister.org` do not *have* to go to the same mailbox — you can't assume they're the same, and you can't assume they're different. (The domain part follows DNS rules and is case-insensitive, so only the right half is safe to lowercase.)
 
 - **Stripping `+` suffixes from addresses is wrong and will break real users.** `john+doe@example.com → john@example.com` is a common "normalization" that destroys a deliberately chosen address. Gmail, Outlook, and most MTAs support plus-addressing as a first-class feature; users rely on it to track who sells their data.
 
@@ -60,7 +60,7 @@ The `+` is just another ordinary character per RFC5321 — no different from `!`
 
 The practical consequence: sites that reject `+` in email fields are breaking a widely-used, RFC-documented feature. One commenter reported filing hundreds of complaints over years of using plus-addressed emails and receiving exactly a single-digit number of fixes.
 
-### Dots on the Domain Side
+### Gmail's Dot Quirk
 
 Gmail treats dots in the local part as completely insignificant: `jdoe@gmail.com` and `j.d.o.e@gmail.com` land in the same inbox. This is Gmail's own policy, not an RFC requirement, and it creates normalization headaches — you cannot deduplicate Gmail addresses by string comparison.
 

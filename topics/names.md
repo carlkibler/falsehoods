@@ -24,7 +24,7 @@
 
 - **Jennifer 8. Lee has the numeral 8 as her legal middle name**, chosen because 8 is associated with good fortune. Your alphanumeric validation just rejected a real person's real name.
 
-- **Some people have no name at all — or at least not one your system can capture.** There is a documented isolated culture in which people used no personal names, referring to everyone by relational terms ("my mother's eldest sister"). And some languages have no associated writing system, making any Unicode representation impossible.
+- **Some cultures don't use stable personal names the way software expects.** There is a documented isolated culture in which people used no personal names, referring to everyone by relational terms ("my mother's eldest sister"). And some languages have no native writing system, so any written form is a transliteration or phonetic approximation, never the "real" name.
 
 ## Where It Gets Complicated
 
@@ -92,7 +92,7 @@ Chinese and Japanese have no concept of uppercase or lowercase — the entire ca
 
 ASCII excludes accented Latin characters used in French and Portuguese. It excludes Greek, Cyrillic, Devanagari, Hanzi, Kanji, Hangul, and hundreds of other scripts. Even the name *Zoë* requires non-ASCII characters.
 
-Unicode covers the vast majority of scripts but not all. Aymara — spoken by over a million people in South America — has a script not yet fully covered. Some Chinese and Japanese characters used in names are not in Unicode. The symbol Prince adopted as his name has no Unicode code point. Some languages have no writing system at all, making any encoding a lossy approximation.
+Unicode covers the vast majority of scripts but not all. Some Chinese and Japanese characters used in names are not in Unicode. The symbol Prince adopted as his name has no Unicode code point. Some languages have no writing system at all, making any encoding a lossy approximation.
 
 People also mix scripts within a single name: Kanji combined with Latin characters, or Hanzi combined with Latin, often because the person adopted a "Western given name" for those unable to pronounce their native name. A Japanese name may require three separate fields: ideographic form (Kanji), phonetic form (Hiragana or Katakana), and Latin romanization.
 
@@ -110,17 +110,15 @@ Addressing someone by their given name on first contact is friendly in Silicon V
 
 Titles also reveal marital status for women (*Miss/Mrs./Ms.*) but not for men — a structural asymmetry worth examining before you make a title field mandatory. And "maiden name" assumes gender; "previous name" does not.
 
----
-
 ## If You Build This
 
-1. **Use a single free-text "full name" field wherever possible.** The moment you split into "first" and "last," you've made a cultural assumption that will be wrong for a significant fraction of your users. If you must split, label fields "given name" and "family name" — never "first name" and "last name" — and make the family name field optional.
+1. **Use a single free-text "full name" field wherever possible.** The moment you split into "first" and "last," you've made a cultural assumption that will be wrong for a significant fraction of your users. If you must split, label fields "given name" and "family name" — never "first name" and "last name" — and make the family name field optional. (Caveat: legal, payroll, tax, immigration, healthcare, and identity-verification systems may genuinely require structured official-name fields — separate those from the display name rather than forcing everyone through them.)
 
 2. **Add a "how would you like to be addressed?" field** rather than constructing a salutation algorithmically. You cannot reliably extract a given name from a full name across cultures. Just ask. This also sidesteps the formality problem: some users want "Dear María José," others want "Dear Ms. Carreño Quiñones," and no algorithm gets this right.
 
 3. **Store names in UTF-8 throughout your entire stack** — forms, APIs, databases, logs, email templates. A name like Björk Guðmundsdóttir or 毛泽东 must survive every hop without corruption. Size your database columns for Unicode: a 4-character Japanese name needs 12 bytes in UTF-8, not 4.
 
-4. **Never run a name through a reserved-word filter, a bad-word list, or a NULL check.** Christopher Null's last name will fail all three. Test your system by entering "Null," "O'Brien," "van der Meer," "María José," "田中太郎," and a 100-character string before you ship.
+4. **Never coerce a name into absence because it looks like a keyword.** Christopher Null's surname is a real string, not a missing value — don't let a reserved-word filter, a bad-word list, or code that treats the text "Null"/"NULL"/"nil" as empty silently drop it. (Database NULL checks on whether a value was supplied are fine; conflating the string with the absence is the bug.) Test your system by entering "Null," "O'Brien," "van der Meer," "María José," "田中太郎," and a 100-character string before you ship.
 
 5. **Do not normalize case.** Do not auto-capitalize. Store exactly what the user typed. *ffrench* is lowercase. *McNamara* has an internal capital. *van der Meer* is lowercase when a given name precedes it and capitalized when it stands alone. You cannot reconstruct this from a rule.
 

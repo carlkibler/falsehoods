@@ -24,7 +24,7 @@ Computers natively store integers. Decimal fractions get approximated in binary,
 - Base 10's prime factors are 2 and 5, so `1/2`, `1/4`, `1/5`, `1/8`, `1/10` terminate, while `1/3`, `1/6`, `1/7`, `1/9` repeat.
 - Base 2's only prime factor is 2, so only denominators that are powers of 2 terminate. `1/10` and `1/5` become repeating binary fractions, get truncated to fit the mantissa, and the leftover error surfaces when you convert back to decimal.
 
-This is why `0.1 + 0.2` lands at `0.30000000000000004` in C, C++, Go, Rust, Java, JavaScript, Python 3, and most everything else using IEEE 754 doubles. The exact stored value of that sum is `0.299999999999999988897769753748434595763683319091796875` (Go can print all 54 digits if you ask).
+This is why `0.1 + 0.2` lands at `0.30000000000000004` in C, C++, Go, Rust, Java, JavaScript, Python 3, and most everything else using IEEE 754 doubles. The exact stored value of that sum is `0.3000000000000000444089209850062616169452667236328125` (and a language like Go will print the full value if you ask).
 
 ### Comparison
 

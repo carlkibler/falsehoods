@@ -13,7 +13,9 @@
 # (propose-topic.py, curl|pandoc). The SYNTHESIS/writing wants a strong, high-
 # cohesion model — cheap models get disordered on multi-source packets long
 # before their advertised context limit. Default is sonnet; use --model opus or
-# --frontier for max quality, --model kimi-2.6 to economize on simple topics.
+# --model grok for max quality, --model kimi-2.6 to economize on simple topics.
+# (build-topic.sh takes --model only; tier flags like --frontier belong to the
+# underlying `agent` CLI, not here.)
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

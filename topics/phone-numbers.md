@@ -16,7 +16,7 @@
 
 - **1-800-MICROSOFT is an invalid phone number that still calls Microsoft.** Extra digits beyond what's needed are silently discarded in some countries and on some networks. Conversely, "911 123" reaches emergency services in some places but not others.
 
-- **Italy's leading zero is not decorable — it's load-bearing.** Since 1998, Italian numbers have the national prefix baked in, so `(01) 2345` became `012345` and must be dialed internationally as `+39 012345`, zero included. The common rule "drop the leading zero when dialing internationally" will silently misdial Italian numbers.
+- **Italy's leading zero is not decorative — it's load-bearing.** Since 1998, Italian numbers have the national prefix baked in, so `(01) 2345` became `012345` and must be dialed internationally as `+39 012345`, zero included. The common rule "drop the leading zero when dialing internationally" will silently misdial Italian numbers.
 
 - **Phone numbers can contain `*` and letters.** Israel has advertising numbers starting with `*`; New Zealand uses `*555` for traffic incident reporting; the US has `1-800-Flowers`. Storing a phone number as an integer silently destroys all of this.
 

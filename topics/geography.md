@@ -18,11 +18,11 @@
 
 - **The shortest path between two points is not a straight line** — at least not on a globe. On a sphere, the shortest route is a great-circle arc, which looks curved on most map projections and can take you over the Arctic when flying between continents.
 
-- **Web Mercator distorts area so severely it's unsuitable for many purposes.** Greenland appears roughly the size of Africa on a Mercator projection; Africa is actually about 14 times larger. Using Web Mercator for anything involving area or distance calculations is quietly catastrophic.
+- **Web Mercator distorts area so severely it's unsuitable for many purposes.** Greenland appears roughly the size of Africa on a Mercator projection; Africa is actually about 14 times larger.
 
 - **Australian postcodes suggest a state — until they don't.** The postcode range 2000–2999 is New South Wales and 3000–3999 is Victoria, except Barooga, NSW sits directly across the river from Cobram, VIC, and both share postcode 3644.
 
-- **100° is either a pleasant day or a medical emergency**, depending entirely on whether you're using Celsius or Fahrenheit — and there are additional temperature scales beyond those two. Storing or transmitting a bare temperature number without its unit is a latent disaster.
+- **100° is either a pleasant day or a medical emergency**, depending entirely on whether you're using Celsius or Fahrenheit — and there are additional temperature scales beyond those two. A bare temperature number carries no unit.
 
 ---
 

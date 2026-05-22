@@ -12,7 +12,7 @@
 
 - **Japan's postal CSV is so broken that people joke the punishment in Hell is parsing it forever.** The file splits single records across multiple lines when a neighborhood name exceeds 38 characters, duplicating every other field. One postal code — 〒452-0961 in Kiyosu City — spans 66 rows. Some Kyoto entries require 8 rows just to describe an intersection-based address like "North Town (Up Lower Godsroad from the West, Down Turtle Street from the East…)."
 
-- **"Just use house number + postcode" is a myth.** In the UK, postcodes CV4 7AL covers the entire University of Warwick campus (6,000 students), and DVLA Swansea uses *different postcodes for different departments* — V5Cs go to SA99 1BA, driving licences to SA99 1AB. Meanwhile, postcode CV12 8UE covers seven differently-named roads (Gatehouse Lane, Emes Walk, Bucklers Yard, Homers Yard, Lye Corner, Sleets Yard, Old Penns Yard) that all share overlapping house numbers.
+- **"Just use house number + postcode" is a myth.** In the UK, postcode CV4 7AL covers the entire University of Warwick campus (6,000 students), and DVLA Swansea uses *different postcodes for different departments* — V5Cs go to SA99 1BA, driving licences to SA99 1AB. Meanwhile, postcode CV12 8UE covers seven differently-named roads (Gatehouse Lane, Emes Walk, Bucklers Yard, Homers Yard, Lye Corner, Sleets Yard, Old Penns Yard) that all share overlapping house numbers.
 
 - **A building can have the number Pi.** Pi, Green Lane, Wicklewood, Wymondham NR18 9ET is a real UK address. There are also houses numbered 99½, 75¾, 1¼, and — at 44½ D, Claypath, Durham — a fractional number with a letter suffix.
 
@@ -68,7 +68,7 @@ The assumption that a building has one clean, unique, numeric identifier dissolv
 
 **Postcodes can be assigned to things that don't exist yet, or no longer exist.** Royal Mail's *Not Yet Built* database product exists for a reason. Temporary postcodes are assigned to building sites. Demolished buildings linger in databases.
 
-**Santa Claus has official postcodes.** Canada: H0H 0H0. UK: Father Christmas, Santa's Grotto, Reindeerland, XM4 5HQ. Germany: Santa Claus Nordpolen, Julemandes Postkontor, DK-3900 Nuuk.
+**Santa Claus has official postcodes.** Canada: H0H 0H0. UK: Father Christmas, Santa's Grotto, Reindeerland, XM4 5HQ. Greenland: Santa Claus, Julemandens Postkontor, 3900 Nuuk.
 
 ---
 

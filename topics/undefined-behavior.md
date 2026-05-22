@@ -22,7 +22,7 @@
 Program behaviors fall into three buckets, not two:
 
 - **Specification-defined:** the language itself defines what happens. This is the vast majority of every program.
-- **Implementation-defined:** the compiler, OS, or hardware decides, and must document and stick to its choice. Example: exactly how many bits are in a `char` or `int` in C++ (the spec guarantees at least 8 for `char`, at least 16 for `int`; the rest is the implementation's call).
+- **Implementation-defined:** the compiler, OS, or hardware decides, and must document and stick to its choice. The canonical example is `CHAR_BIT`, the number of bits in a `char` — the spec only guarantees it's at least 8, and the implementation picks the rest. (Int width follows from there: at least 16 bits, the exact value the implementation's call.)
 - **Undefined:** anything is allowed to happen, and you might not have a computer left afterward. No outcome is a bug if UB caused it. Examples: signed integer overflow in C, or using `unsafe` to create two `&mut` references to the same data in Rust.
 
 Unspecified behavior is a fourth, milder cousin — like implementation-defined but without the requirement to document and commit to a choice. None of these are UB. UB is the one where the rules stop applying.
@@ -96,7 +96,7 @@ Stepping through a UB-containing program will *not* reliably show state matching
 ### Platform and language nuances
 
 - Exotic platforms can offer *extra* guarantees (e.g. CHERI's pointer-safety powers). Most common platforms only guarantee OS-level process isolation — and even that is outside the scope of "what the spec promises."
-- In Rust, the "it compiled, so no UB" claim is *almost* true: code that never uses `unsafe` should be UB-free, and triggering UB from safe Rust is considered a compiler bug (rare, and you're unlikely to hit one). The moment `unsafe` appears, all bets are off exactly like C and C++. This guarantee took engineer-centuries to build.
+- In Rust, the "it compiled, so no UB" claim is *almost* true: code that never uses `unsafe` should be UB-free, and triggering UB from safe Rust is considered a compiler bug (rare, and you're unlikely to hit one). The moment `unsafe` appears, all bets are off exactly like C and C++. That guarantee represents an enormous amount of accumulated engineering effort.
 
 ## If You Build This
 

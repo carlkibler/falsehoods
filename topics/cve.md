@@ -44,7 +44,7 @@ CVE™ is everywhere — in tickets, release notes, investor decks, breach repor
 
 - A CVE does not necessarily contain enough information to compute its CVSS score.
 - It may not contain enough to determine the severity at all.
-- It may not even contain enough to determine which product is affected. (The packet's repeated "A CVE contains sufficient informa… 🙄" is the joke landing: often, it just doesn't.)
+- It may not even contain enough to determine which product is affected. The recurring assumption that "a CVE contains sufficient information" is exactly that — an assumption. Often, it just doesn't.
 - **A CNA absolutely *would* write a CVE description carefully to influence the score NIST assigns.** Descriptions are framed strategically, downplaying or emphasizing details to nudge the resulting CVSS. The data is not a neutral physical measurement.
 
 ### The assignment and CNA process

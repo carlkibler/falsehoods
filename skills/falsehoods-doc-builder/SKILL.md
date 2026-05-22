@@ -31,6 +31,15 @@ sources/<slug>/        gitignored scratch: _packet.md (fed to model) + _sources.
 
 Each entry in `topics.json` `sources[]` is `{label, url}`, plus an optional `fetch_url` to fetch from a mirror (e.g. a Wayback snapshot) when the live page is JS-walled — the citation still uses `url`.
 
+## Prerequisites & portability (read this if you're not Carl)
+
+This repo is public; the workflow is meant to be reproducible by any agent. What you need:
+
+- **Tools on PATH:** `bash`, `python3`, `curl`, `pandoc` (HTML→markdown). `gh` only if you use `propose-topic.py`'s GitHub-API fallback. `git` to commit.
+- **A synthesizer.** The synthesis step needs *a* strong model. There are two ways to provide one:
+  - **The `agent` CLI contract.** `build-topic.sh` shells out to a command named `agent` (Carl's lives at `~/.claude/bin/agent` and proxies OpenRouter; it is NOT shipped here). Any wrapper works if it honors this contract: `agent <model-shorthand> --file <packet.md> --max-tokens <N> --timeout <S> --system <TEXT> "<prompt>"` and prints the completion to stdout. Bring your own, or edit the one `~/.claude/bin/agent` line in `build-topic.sh` to call whatever CLI your harness has.
+  - **No CLI? Use the orchestrator/subagent fallback (path b below).** This needs no `agent` binary and no API key — just your own model.
+
 ## The core insight (read this before changing anything)
 
 Two separate principles drive the design:
@@ -45,7 +54,7 @@ Don't WebFetch sources into your own context to "help" — that defeats the purp
 
 Two ways to run synthesis — pick based on whose budget pays:
 
-- **(a) Via the `agent` CLI (OpenRouter, pay-per-token).** `build-topic.sh` does this end to end: `--model sonnet` (default, strong baseline), `--model opus`/`--frontier` (max quality), `--model kimi-2.6` (economize). Fully automated; costs OpenRouter credits (~$0.20/topic for sonnet).
+- **(a) Via an `agent` CLI (pay-per-token).** `build-topic.sh` does this end to end with `--model sonnet` (default, strong baseline), `--model opus`/`--model grok` (max quality), or `--model kimi-2.6` (economize). This requires an `agent` CLI on PATH — see the contract in "Prerequisites" below. `build-topic.sh` takes `--model` only; don't pass `--frontier` to it (that's an `agent` flag, not a `build-topic.sh` one).
 - **(b) Via the orchestrator's own model / subagents (the harness subscription, $0 API).** Run `build-topic.sh <slug> --dry-run` to fetch + archive + build `sources/<slug>/_packet.md` and `sources/<slug>/_sources.md` *without* calling any paid model. Then synthesize the doc yourself — or, to keep your context clean and parallelize, dispatch a subagent per topic that: reads the packet, writes the doc to `topics/<slug>.md` following the template in `prompts/`, and appends `sources/<slug>/_sources.md` verbatim. This is how the bulk of this repo was written. Subagents each get their own context, so a wave of ~6 in parallel is comfortable. Remember to insert the jump-to-Sources link under the hook (build-topic.sh does this automatically; the subagent path doesn't — re-run the small insertion, or have the subagent add `**[Sources & credits ↓](#sources)**` right under the `>` hook line).
 
 If a packet is large (many or long sources), prefer a stronger model or trim sources; don't hand a giant packet to a cheap model and hope.

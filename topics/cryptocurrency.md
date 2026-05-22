@@ -26,6 +26,8 @@
 
 ## Where It Gets Complicated
 
+Most of these only bite if you touch consensus, the mempool, or the EVM directly — but if you do, the abstractions stop holding.
+
 ### Blocks and mining
 
 - **A valid block is not guaranteed inclusion.** Even a single-handedly mined valid block is ignored if its hash collides with an earlier block's — its inventory vector looks like a duplicate, so no node requests it.

@@ -16,15 +16,9 @@
 
 - **DNS traffic always uses UDP.** DNS falls back to TCP for responses larger than 512 bytes (or 4096 bytes with EDNS), for zone transfers, and in other cases. Writing a firewall rule that blocks TCP/53 is a great way to break things mysteriously.
 
-- **Postdocs formally exist.** At almost all universities, there is no such thing as a "postdoc" in the official ontology. Research councils recognize only "Research Assistants" and "academic staff (lecturer or equivalent)." An entire workforce is governed by a category that doesn't officially exist.
-
-- **"Permanent position" is the opposite of "postdoc position."** False, at least in the UK. Academics can be appointed on limited tenure too. Meanwhile, many postdocs *are* legally permanent, thanks to the 1999 EU Directive on Fixed-Term Work — they just aren't treated that way.
-
 - **ICMP is only used for ping and traceroute.** ICMP is a load-bearing part of TCP/IP: Path MTU Discovery relies on it, and blocking ICMP wholesale breaks things in ways that are infuriating to diagnose.
 
 - **The error "compiler warning" means something optional.** Warnings are frequently errors-in-waiting. Ignoring them is how you get undefined behavior that works perfectly until it doesn't — usually in production, under load, on a platform you didn't test.
-
-- **Postdoc numbers grew because there are "too many PhDs."** The number of postdoc positions is a function of *how money is spent*, not of nature. What actually happened is a decades-long policy shift from core institutional funding toward short-term project grants, deliberately creating a large pool of cheap, highly-skilled, precarious labor.
 
 ---
 
@@ -118,21 +112,19 @@ The Unix filesystem model looks simple until you actually use it. Several assump
 
 **Technology and algorithms are neutral.** Training data reflects historical biases. Optimization targets encode value judgments. The people who build systems make choices that have consequences for real people.
 
-**Brooks's Law has exceptions. Conway's Law has exceptions. Murphy's Law has exceptions.** They don't. Adding people to a late project makes it later. Systems reflect the communication structures of the organizations that build them. Anything that can go wrong will.
+**Brooks's Law, Conway's Law, and Murphy's Law all have exceptions.** They don't — the laws hold. Adding people to a late project makes it later. Systems reflect the communication structures of the organizations that build them. Anything that can go wrong will.
 
-### The Postdoc Institutional Reality
+### When the Category Doesn't Match Reality
 
-*(A specific instance of "formal categories don't match reality.")*
+Organizational labels lie the same way abstractions do — and the academic "postdoc" is a sharp example. At almost all universities there is no "postdoc" in the official ontology; research councils recognize only "Research Assistants" and "academic staff." An entire workforce runs on a category that doesn't formally exist, and the assumptions stacked on it are mostly false:
 
-**Postdocs are "students" or "trainees."** They are not. Someone who has completed a PhD is a qualified researcher doing actual research. The "postdoctoral student" framing — used in real funding documents — is both inaccurate and corrosive to how these researchers are treated.
+**Postdocs are "students" or "trainees."** They aren't. Someone who finished a PhD is a qualified researcher doing real research; the "postdoctoral student" framing — used in actual funding documents — is both inaccurate and corrosive.
 
-**Postdocs are a homogeneous, junior population.** At Cambridge, over 40% of Research Associates had more than three years of service in the role, and around 10% had over ten years. The "overgrown graduate student" caricature is wrong and drives misguided policy.
+**Postdocs are a homogeneous, junior population.** At Cambridge, over 40% of Research Associates had more than three years of service, and around 10% had over ten. The "overgrown graduate student" caricature drives misguided policy.
 
-**Postdocs are on a journey toward "research independence."** "Independence" in practice describes funding status, not personal development. As project-based grants have crowded out core institutional funding, the number of "independent" researchers has fallen on paper while the actual research capability has not.
+**Postdoc numbers grew because there are "too many PhDs."** No — they are a function of *how money is spent*. A decades-long shift from core institutional funding to short-term project grants deliberately created a large pool of cheap, highly-skilled, precarious labor. Positions are created by budget decisions, not by nature.
 
-**Postdocs' PIs will speak for them and look after their interests.** A PI is at best a partial ally and can easily be an adversary. Arguments that postdocs don't need representation because their PI will advocate for them are structurally identical to arguments against female suffrage: "they'll just vote the same way as their husband."
-
-**The growth in postdoc numbers is a natural consequence of too many PhDs.** It is a consequence of policy: a 40-year shift in UK research funding from core institutional grants (once 60% of the total) to project-based grants (now the majority). Positions are not created by nature; they are created by money spent according to explicit decisions.
+The lesson generalizes: before you build policy or software around a category — "postdoc," "contractor," "user," "admin" — verify what it actually means in the system you're operating in.
 
 ---
 

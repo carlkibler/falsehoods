@@ -90,7 +90,7 @@ The assumption that an artist or album name is a well-behaved Unicode string tha
 
 **Filesystem hostility:** MASTER BOOT RECORD names their albums after things both Windows and Linux dislike. The You Suck Flying Circus released `///////-//-/////` on Linux. Marco.V has a track named `C:/del*mp3`. Auto!Automatic!!'s *Another Round Won't Get Us Down* contains tracks named `\` and `//////////`.
 
-**Unicode edge cases:** Spın̈al Tap uses a dotless i and a genuine n-diaresis (not n + combining umlaut). Magma's Kobaïan language uses custom diacritics that don't exist in UTF-8. Aphex Twin's track `∆Mᵢ⁻¹=−α ∑ Dᵢ[η][∑ Fjᵢ[η−1]+Fextᵢ[η⁻¹]]` is a real title you must store and display. KEYGEN CHURCH released albums titled `░█░█░░█░█░█░` and `░ ▒ ▓ █`. Coldplay's *Music of the Spheres* uses emoji as track titles.
+**Unicode edge cases:** Spın̈al Tap uses a dotless i and a genuine n-diaresis (not n + combining umlaut). Magma's Kobaïan language uses custom diacritics that don't exist in UTF-8. KEYGEN CHURCH released albums titled `░█░█░░█░█░█░` and `░ ▒ ▓ █`. Coldplay's *Music of the Spheres* uses emoji as track titles.
 
 **Long names:** Fiona Apple's album title is a 90-word sentence. Bring Me the Horizon released an album whose title is a 30-phrase tilde-separated list. Eximperituserqethhzebibšiptugakkathšulweliarzaxułum released an album whose title runs to several hundred characters in Belarusian.
 

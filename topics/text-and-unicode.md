@@ -22,7 +22,7 @@
 
 - **`toLowerCase()` is locale-dependent and will betray you.** In Java, `"IT".toLowerCase()` becomes `"ıt"` on a Turkish system because Turkish has dotless `ı`. Use `Locale.ROOT` explicitly.
 
-- **One code point can be a whole phrase.** U+FDFA is a single code point that decomposes to 18 characters (an Arabic phrase, "may God honor him and grant him peace"). U+FDFD would decompose to ~35 if it were allowed to.
+- **One code point can be a whole phrase.** U+FDFA is a single code point that decomposes to 18 characters (an Arabic phrase, "may God honor him and grant him peace") — the longest compatibility decomposition in all of Unicode.
 
 - **You don't need to index by code point — ever.** O(1) code-point indexing is a feature in search of a use. For slicing, UTF-8 byte indices work fine: the encoding guarantees you can always tell if a byte is a code-point boundary, and no code point is a subslice of another.
 
@@ -78,10 +78,10 @@ For case-insensitive comparison, neither `lower(a)==lower(b)` nor `upper(a)==upp
 A "hidden global variable" as dangerous as the default encoding. The same operations need a locale:
 
 - **Case:** the Turkish/Azeri dotted-`İ`/dotless-`ı` rules, Lithuanian's accented `i`/`j`.
-- **Sorting:** German sorts `ä/ö/ü` as the bare vowel (dictionaries) or as `ae/oe/ue` (phone books); Swedish puts `Ä Ö` after `Z` while German puts them with `A O`; `æ` sorts near `a` in French but like `a` in Swedish; French needs whole-word comparison (`cote < côte < coté < côté`); Chinese is often sorted phonetically, and the same character's reading varies by context. Code-point order is arbitrary and fine only as a map/set key or for known-ASCII.
+- **Sorting:** German sorts `ä/ö/ü` as the bare vowel or as `ae/oe/ue` depending on context; Swedish puts `Ä Ö` after `Z` while German puts them with `A O`; French needs whole-word comparison (`cote < côte < coté < côté`). Code-point order is arbitrary and fine only as a map/set key or for known-ASCII.
 - **Splitting into characters:** Czech/Slovak `ch`, Dutch `ij`, Tagalog `ng` are single units that must not be split.
-- **Splitting into words:** some languages use no spaces; English treats contractions as one word, French as two; Early Modern English and Swedish used colons in contractions.
-- **Line-breaking:** where hyphens are allowed differs (en-GB stricter than en-US); East Asian text breaks between almost any character; Korean breaks differently in formal vs. informal text. And "resort" vs. "re-sort" shows you can't blindly drop hyphens.
+- **Splitting into words:** some languages use no spaces; English treats contractions as one word, French as two.
+- **Line-breaking:** where hyphens are allowed differs by locale; East Asian text breaks between almost any character. And "resort" vs. "re-sort" shows you can't blindly drop hyphens.
 - **Quoting and punctuation:** a bewildering number of quotation marks and conventions; French inserts narrow non-breaking spaces before `: ? ! «»`.
 
 Don't trust default `<`/`==`: `bird < Bird < birds`, `"page 2" < "page 10"` (numeric vs. lexicographic) all need real collation. Use the **Unicode Collation Algorithm** with **CLDR** tailorings.
@@ -113,15 +113,15 @@ Unicode-aware encodings killed the one-byte-per-character myth but not the one-c
 
 ### Writing systems break Latin assumptions
 
-- The Latin alphabet isn't 26 letters once you count case, accents (`á ç ñ`), variants (`ø ł đ`), ligatures (`æ œ`), digraphs/trigraphs, and borrowed letters like Icelandic thorn `þ`. English itself keeps accents in "résumé," diaeresis in "coöperate," grave in "learnèd."
-- Alphabets differ and change: `ñ` is a distinct Spanish letter, Welsh has seven digraph letters, Hungarian has `dzs`; Swedish puts variants at the end; Estonian puts `Z` between `S` and `T`; Hawaiian lists vowels first; capital `ẞ` joined German officially in 2017.
+- The Latin alphabet isn't 26 letters once you count case, accents (`á ç ñ`), variants (`ø ł đ`), ligatures (`æ œ`), and borrowed letters like Icelandic thorn `þ`. English itself keeps accents in "résumé," diaeresis in "coöperate."
+- Alphabets differ and change: `ñ` is a distinct Spanish letter, Welsh has seven digraph letters; some languages put variants at the end of the alphabet, others mid-sequence; capital `ẞ` joined German officially in 2017.
 - Not all writing systems are alphabets or small: syllabaries have 50–500 symbols; logographic systems (Chinese, Egyptian, Mayan) are *open*, inventing new characters continuously, with tens of thousands of entries.
-- One language, multiple scripts (Serbian/Azeri Cyrillic-or-Latin, Uzbek three ways, Hindi/Urdu = one language split by Devanagari vs. Arabic). Mutually unintelligible spoken "Chinese" languages share one writing system. One text mixes scripts: Japanese uses kanji + hiragana + katakana + Latin at once.
-- Text isn't always left-to-right top-to-bottom: Arabic/Hebrew are RTL, traditional CJK is vertical RTL, Mongolian is vertical LTR, and quoted text keeps its native direction inside the host text. Even in RTL scripts, digits read left-to-right (math notation is effectively its own logographic system).
+- One language, multiple scripts (Serbian/Azeri Cyrillic-or-Latin, Hindi/Urdu = one language split by Devanagari vs. Arabic). One text mixes scripts: Japanese uses kanji + hiragana + katakana + Latin at once.
+- Text isn't always left-to-right top-to-bottom: Arabic/Hebrew are RTL, traditional CJK is vertical RTL, Mongolian is vertical LTR. Even in RTL scripts, digits read left-to-right.
 
 ### Unicode is neither purely visual nor purely semantic, nor elegant
 
-It contains invisible semantic-only characters (the invisible times in `a⁢b` that screen readers voice as "a times b"). Yet it also refuses to encode every semantic nuance: Roman numerals are just Latin letters, and there's no dedicated curved apostrophe — the apostrophe shares a glyph with the closing single quote. And it's not elegant by design: to meet its round-trip goal it absorbed the flaws and incompatible principles of every prior encoding, producing a combinatorial mess. "Really, it's a little surprising that Unicode usually just works."
+It contains invisible semantic-only characters (the invisible times in `a⁢b` that screen readers voice as "a times b"). Yet it also refuses to encode every semantic nuance: Roman numerals are just Latin letters, and there's no dedicated curved apostrophe — the apostrophe shares a glyph with the closing single quote. And it's not elegant by design: to meet its round-trip goal it absorbed the flaws and incompatible principles of every prior encoding, producing a combinatorial mess.
 
 ## If You Build This
 

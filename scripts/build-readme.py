@@ -47,9 +47,11 @@ The "falsehoods programmers believe about X" genre is sharp and scattered: dozen
 OUTRO = """\
 ## How it's made
 
-Cheap models find and fetch the sources; a strong model does the writing. Reference lists and the archived source copies are generated, not hand-tended. The whole pipeline is a reusable skill: [`skills/falsehoods-doc-builder`](skills/falsehoods-doc-builder/SKILL.md).
+Sources are curated by hand, fetched and archived by script, and merged into each doc by a strong language model working only from those fetched sources. The reference lists and archived copies are generated deterministically. Then a human + an independent model review pass goes over the docs for accuracy, overreach, and voice — claims get fact-checked and softened where they outran the evidence. The whole pipeline is a reusable skill: [`skills/falsehoods-doc-builder`](skills/falsehoods-doc-builder/SKILL.md).
 
 Add a topic to [`topics.json`](topics.json), run `scripts/build-topic.sh <slug>`, then `scripts/build-readme.py` to refresh this index. Sources rot, so each one is also saved under [`archive/`](archive/) with credit and a link home.
+
+It's a remix, not a primary source — trust but verify, and follow the links to the originals.
 
 ## Credit
 

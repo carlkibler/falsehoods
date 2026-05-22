@@ -17,37 +17,31 @@
 
 ## Where It Gets Complicated
 
+The Big Surprises above are the *what*. This is the *why* — the mechanisms that make each one bite, plus the cases the headline list skips.
+
 ### Parsing & format
 
-- **Versions are strings / decimals / numbers.** A version is none of these cleanly. It's not a string (you can't strcmp it), not a decimal (`1.10 ≠ 1.1`), and not an integer. It's a structured token.
-- **Versions have numbers, periods, and maybe a leading `v`.** Real versions include letters, hyphens, plus signs, underscores, dates, git hashes, and codenames — `1.0.0-rc.1+exp.sha.5114f85`, `2024.05`, `v3-beta`.
-- **`"10"` is not a valid single field.** Fields are multi-digit. `0.9.0 → 0.10.0` is correct; anything that treats each character as a position breaks here.
-- **Semantic versioning cannot be represented as a number or decimal.** Correct, and that's the point — any attempt to coerce it into one loses ordering information.
-- **Over-the-wire and human-readable versions are losslessly convertible.** They aren't. A compact wire encoding may drop pre-release labels, build metadata, or original formatting you can't reconstruct.
+- **Why a version isn't a string, decimal, or integer.** Each coercion loses something specific: strcmp gets ordering wrong, a decimal collapses `1.10` into `1.1`, and an integer can't hold the structure at all. It's a multi-field token, and only field-aware parsing preserves it.
+- **What "structured text" actually contains.** Beyond numbers, periods, and a leading `v`, real versions carry letters, hyphens, plus signs, underscores, dates, git hashes, and codenames — `1.0.0-rc.1+exp.sha.5114f85`, `2024.05`, `v3-beta`. Your parser has to expect all of it.
+- **Wire and human-readable forms are not losslessly convertible.** A compact wire encoding may drop pre-release labels, build metadata, or original formatting you can't reconstruct — so don't round-trip through one and assume you got the same version back.
 
 ### Ordering & comparison
 
-- **At least a semantic version can be compared correctly.** Only if you implement the actual rules: numeric fields compare numerically, pre-release fields compare field-by-field, and a pre-release is *lower* than its release.
-- **The least significant group is the last one.** `1.0.0-alpha < 1.0.0` shows the trailing group can lower the version. Significance isn't strictly left-to-right.
-- **Length doesn't matter as long as versions increase.** `1.2` vs `1.2.0` vs `1.2.0.0` raise real questions — are they equal? Comparing versions of different lengths needs defined rules, not intuition.
-- **Sorting by string or number works.** Lexical sort puts `1.10.0` before `1.9.0`; numeric coercion collapses distinct versions. Neither produces correct order.
+- **What "compared correctly" requires.** Numeric fields compare numerically, pre-release fields compare field-by-field, and a pre-release is *lower* than its release. `1.0.0-alpha < 1.0.0` is why the trailing group can *lower* a version — significance isn't strictly left-to-right.
+- **Length is its own ordering question.** `1.2` vs `1.2.0` vs `1.2.0.0` — equal or not? Comparing versions of different lengths needs defined rules, not intuition.
+- **Why both naive sorts fail.** Lexical sort puts `1.10.0` before `1.9.0`; numeric coercion collapses distinct versions into one. Neither produces correct order.
 
 ### Semver assumptions
 
-- **Versions are semantic.** Many aren't. Dates, sequential build numbers, marketing versions, and ad-hoc schemes are all in the wild.
-- **Semver is always the best choice / is always the standard.** It's one convention among many, and not always the right fit.
-- **Semantic versions only have three positions / never reach double or triple digits.** Both false — extra positions and large fields are common.
-- **Major ≥ 1 implies a stable API; same major implies same API.** Semver describes intent, not enforced reality. Maintainers break the contract, intentionally or not.
-- **Dates are bad for versions.** Date-based schemes (`2024.05`, Ubuntu's `24.04`) are legitimate and often clearer than semver for release cadence.
-- **Versions increase by exactly one.** Fields jump (`1.0` → `2.0`), skip numbers, and reset lower fields to zero. Increments aren't uniform steps.
+- **Plenty of versions aren't semantic at all.** Dates, sequential build numbers, marketing versions, and ad-hoc schemes are all in the wild — and date-based schemes (`2024.05`, Ubuntu's `24.04`) are legitimate, often clearer than semver for release cadence. Semver is one convention among many, not the standard.
+- **Why "same major = same API" fails in practice.** Semver describes *intent*, not enforced reality. Maintainers break the contract, intentionally or not, so the major number is a promise, not a guarantee.
+- **Increments aren't uniform steps.** Fields jump (`1.0` → `2.0`), skip numbers, and reset lower fields to zero. Don't assume a version went up by exactly one.
 
 ### Identity & uniqueness
 
-- **Equal numbers mean equal code.** Two artifacts tagged `1.2.3` can differ by build metadata, platform, or channel — same label, different bits.
-- **All code in an archive shares one version,** and **versions are consistent within a project.** Monorepos, vendored dependencies, and independently versioned components mean a single archive or project can hold many versions at once.
-- **Versions are consistent across a language or community.** Conventions vary wildly between ecosystems and even between projects in the same one.
-- **`latest` always points to the newest semver.** `latest` is a mutable pointer set by humans and tooling. It can lag, point to a pre-release, or track a non-semver line entirely.
-- **Version numbers convey no runtime information.** They can — code reads the version to negotiate protocols, gate features, or apply compatibility shims.
+- **Why equal numbers needn't mean equal code.** Two artifacts tagged `1.2.3` can differ by build metadata, platform, or channel — same label, different bits.
+- **One archive or project can hold many versions.** Monorepos, vendored dependencies, and independently versioned components break "all code shares one version." Conventions also vary wildly between ecosystems and even between projects in one.
+- **`latest` is a mutable human-set pointer.** It can lag, point to a pre-release, or track a non-semver line entirely — never assume it's the newest semver.
 
 ## If You Build This
 

@@ -4,7 +4,7 @@
 
 **[Sources & credits ↓](#sources)**
 
-This list comes from someone who is not a programmer but who has spent years filling out job-application forms with an unusual work history — and getting blocked by software that assumed everyone's career looks like a tidy ladder. Many of the falsehoods about [names](#), [genders](#), and addresses apply here too; a job application is just one more form that quietly assumes you're someone you're not.
+This list comes from someone who is not a programmer but who has spent years filling out job-application forms with an unusual work history — and getting blocked by software that assumed everyone's career looks like a tidy ladder. Many of the falsehoods about [names](names.md), genders, and [addresses](postal-addresses.md) apply here too; a job application is just one more form that quietly assumes you're someone you're not.
 
 ## The Big Surprises
 

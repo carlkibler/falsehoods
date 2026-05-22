@@ -6,21 +6,21 @@
 
 ## The Big Surprises
 
-- **Two flights from the same major airline can depart within minutes of each other and share the same flight number.** Not a data error — it actually happens, and your system needs to handle it.
+- **Two flights from the same major airline can depart within minutes of each other and share the same flight number.** Not a data error — it actually happens.
 
 - **A seat map is not a grid.** On the American Airlines Boeing 787-8, Business Class seats between the aisles are *staggered* relative to window seats in the same row. Aligning by column letter produces a lie.
 
-- **The British Airways Boeing 747-400 Layout 1 arranges its cabins as: First, Premium Economy, Business, Economy** — front to back. The assumption that premium cabins always stack neatly toward the front will break on this aircraft.
+- **The British Airways Boeing 747-400 Layout 1 arranges its cabins as: First, Premium Economy, Business, Economy** — front to back. Premium cabins do not always stack neatly toward the nose.
 
-- **Something with an ICAO code doesn't have to be on Earth.** ICAO codes are assigned to things that are emphatically not terrestrial airports. Plan accordingly.
+- **Something with an ICAO code doesn't have to be on Earth.** ICAO assigns location indicators to things that are emphatically not terrestrial airports.
 
 - **ADS-B messages — the system air traffic control relies on to track aircraft — can be transmitted by things that are not aircraft, not vehicles, and not anything moving at all.** Someone has also deliberately set their flight identification to `NULL`.
 
 - **The flight number on your boarding pass may not be what the pilots or air traffic control are using.** Codeshare arrangements mean the operating carrier can be flying under a completely different airline's code, and the cockpit crew may be using yet another identifier entirely.
 
-- **On the American Airlines Boeing 777-200, toilets and galleys are placed where seats would normally be** — mid-cabin, not at the ends. Any layout system that assumes lavatories only appear before or after seat blocks will render this aircraft incorrectly.
+- **On the American Airlines Boeing 777-200, toilets and galleys are placed where seats would normally be** — mid-cabin, not at the ends. Lavatories do not only appear before or after seat blocks.
 
-- **Airports move.** Treating an airport's location as a static fact in your schema is an assumption that has already been violated in the real world.
+- **Airports move.** An airport's location is not a static fact — it has already changed in the real world.
 
 - **Ryanair's Boeing 737-800 skips row 13.** Seat row numbers are not guaranteed to be consecutive — and if you're computing row count from the highest row number, you're off by at least one.
 

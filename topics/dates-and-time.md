@@ -32,13 +32,13 @@ A day is not always 24 hours. DST transitions produce 23-hour and 25-hour days (
 
 Unix time sidesteps this by *assuming* every day is exactly 86,400 seconds and either repeating or omitting a timestamp to compensate. As of 2019, this means Unix time is running 27 seconds behind true UTC — the 27 inserted leap seconds are simply missing from the count. The formal definition is: *Unix time is the number of seconds since 1 January 1970 00:00:00 UTC, minus all leap seconds.*
 
-A minute is not always 60 seconds. When a leap second is inserted, a minute has 61 seconds, and `23:59:60` is a valid timestamp. Negative leap seconds (a 59-second minute) haven't happened yet but are theoretically possible.
+Minutes are not reliably 60 seconds either. When a leap second is inserted, a minute has 61 seconds, and `23:59:60` is a valid timestamp. Negative leap seconds (a 59-second minute) haven't happened yet but are theoretically possible.
 
 `Thread.sleep(1000)` does not guarantee sleeping for exactly 1,000 milliseconds, or even *at least* 1,000 milliseconds. And if a process runs for *n* seconds and then terminates, approximately *n* seconds will not necessarily have elapsed on the system clock — especially if the clock was adjusted mid-run.
 
 ### The Calendar Is a Patchwork
 
-Months do not have 30 or 31 days — February alone can be 28 or 29. Years are not always 365 days. Leap years are not simply "every year divisible by 4"; the actual rule involves divisibility by 100 and 400. Non-leap years can contain a leap day if time zone rules shift the calendar boundary in certain edge cases.
+Months do not have 30 or 31 days — February alone can be 28 or 29. Years are not always 365 days. Leap years are not simply "every year divisible by 4"; the actual rule involves divisibility by 100 and 400.
 
 The day of the month does not always advance from N to N+1. Historical calendar reforms introduced discontinuities. And the day before Saturday is not *always* Friday — at the International Date Line, flying across it can skip or repeat a day entirely.
 
@@ -64,8 +64,6 @@ A local date-time combination is not always valid. In `Europe/Copenhagen`, `2014
 
 A local time is not always unambiguous. In any region that falls back, the clock passes through the same hour twice. If someone tells you the local time was `2:17` during a fall-back transition, you cannot know which `2:17` they mean without additional information.
 
-Storing a timestamp as UTC doesn't fully solve this for *future* events: if the time zone rules change between now and then, the UTC value may convert back to the wrong wall-clock time.
-
 ### Clocks, Servers, and Distributed Systems
 
 The system clock is not always set to the correct time, or even close to it. It is not always ahead of or behind by a consistent number of seconds. The server clock and the client clock may differ by seconds, minutes, hours, or *decades* — and if they're out of sync, the delta is not necessarily consistent.
@@ -74,7 +72,7 @@ Two subsequent calls to `getCurrentTime()` may return the same value (limited re
 
 A timestamp of high precision is not safely unique. Two events occurring in rapid succession on the same or different machines can receive identical timestamps.
 
-Establishing a total ordering on timestamps across systems is not reliable. `It's possible to establish a total ordering on timestamps that is useful outside your system` is false.
+Establishing a total ordering on timestamps across systems is not reliable. You cannot build an ordering on timestamps that stays meaningful once it leaves your own system.
 
 ### Human-Readable Formats
 

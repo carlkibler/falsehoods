@@ -9,15 +9,15 @@ CSV looks like the simplest file format imaginable: values, separated by commas,
 ## The Big Surprises
 
 - **A field can contain newlines.** A single record can sprawl across many physical lines when a quoted field holds a `CR`, `LF`, or `CRLF`. So `file().split("\n")` (or PHP's `foreach(file($csv) as $row)`) will shred your data mid-record. One row is *not* one line.
-- **An empty file is valid CSV.** "CSV files contain data" is false. Zero bytes is a perfectly legal CSV.
-- **The delimiter isn't always a comma.** Tabs, semicolons (common across Europe), pipes, and — if someone's feeling spicy — even control characters or emoji can separate fields. TSV *is* CSV with a different delimiter, despite the name.
+- **An empty file can be valid CSV.** "CSV files contain data" is false: many parsers accept zero bytes as a valid (empty) dataset — though not every downstream consumer will agree.
+- **The delimiter isn't always a comma.** Tabs, semicolons (common across Europe), pipes, and — if someone's feeling spicy — even control characters or emoji can separate fields. TSV is the same delimited-text family, just with its own conventions.
 - **Excel cannot reliably round-trip its own CSVs.** Open a CSV in Excel and save it: it may strip the quotes around your text fields, so the moment a field contains a comma you're hosed. It also "helpfully" mangles leading zeros, anything that looks like a date (see: corrupted gene names in published papers), and numbers in different locales.
-- **Excel doesn't export UTF-8.** It's reportedly the only common CSV-exporting program that won't, while most other programs export *only* UTF-8. There is no single approach that produces files readable in both Excel and everything else.
+- **Excel's plain "CSV" export isn't UTF-8.** The classic *CSV (Comma delimited)* save uses the system ANSI codepage and mangles non-ASCII characters; you have to pick the separate *CSV UTF-8* option (added in Excel 2016) to get UTF-8, and even that writes a BOM. Older Excel won't emit UTF-8 at all. Meanwhile most other tools export *only* UTF-8 — so a default-saved Excel CSV and "everything else" still don't reliably round-trip.
 - **Naming your first column `ID` can break the file.** If a CSV (well, a text file Excel treats as one) begins with the literal characters `ID`, Excel decides it's a SYLK file and refuses to open it. Microsoft has a KB article about this.
 - **Rows can have different field counts — including more than the header.** Records aren't guaranteed to match each other, match the header, or even stay *under* the header's column count. Records can also be truncated mid-line anywhere in the file.
 - **A decimal number can contain a comma.** Italian (and other) locales write `3,14` instead of `3.14`. Your config matrix works on your machine and explodes on the client's, for reasons you never knew existed.
 - **"Human readable" is optional.** A CSV can be full of Base64, binary blobs, or null bytes, and use non-printing control characters as its delimiter. Nothing requires it to be eyeball-friendly.
-- **The header is a black art.** RFC 4180 doesn't even define a "header." It might not be line one; it might not be the first non-empty line; its names might not be unique, might be empty strings, might contain newlines or quotes. The only reliable way to identify the header is to ask the user.
+- **The header is a black art.** RFC 4180 defines only a narrow optional header convention, which real files ignore. It might not be line one; it might not be the first non-empty line; its names might not be unique, might be empty strings, might contain newlines or quotes. The only reliable way to identify the header is to ask the user, or to work from an explicit schema or contract.
 
 ## Where It Gets Complicated
 
@@ -51,7 +51,6 @@ Pick an encoding assumption and the universe has a counterexample. CSVs are *not
 - **Don't trust the shape of the data.** Handle variable field counts, missing or duplicated headers, empty files, null bytes, and locale-specific decimals defensively. Validate and cleanse on every ingest, even from a "trusted" source.
 - **Treat Excel as a hostile round-trip.** If users will open files in Excel, expect stripped quotes, reformatted dates, dropped leading zeros, and lossy saves. When you actually need a spreadsheet, generate `.xlsx` with a library instead of abusing CSV.
 - **When in doubt, ask.** The header row, the delimiter, and the encoding are frequently undiscoverable from the bytes alone. For structured pipelines, consider a CSV schema and validator rather than hoping every producer agrees with you.
-
 
 ## Sources
 

@@ -12,7 +12,7 @@
 
 - **"/dev/random hands you pure randomness straight from the entropy pool."** It doesn't. Every randomness source is mixed and hashed through the CSPRNG before a single byte comes out — via either device. There is no "raw whitened randomness" tap.
 
-- **"You'll run out of entropy and /dev/urandom will give you weak numbers."** Entropy "running low" is a straw man. ~256 bits of entropy is enough to produce computationally secure output for longer than the universe has existed. You don't burn through it like fuel.
+- **"You'll run out of entropy and /dev/urandom will give you weak numbers."** Entropy "running low" is a straw man. Once seeded with ~256 bits, a CSPRNG can produce computationally secure output for the life of the process without depleting anything. You don't burn through it like fuel.
 
 - **"The kernel precisely counts the entropy in its pool."** It *estimates* it, by interpolating polynomials over event arrival times to gauge "how surprising" each event was. If that estimate is too optimistic, /dev/random's cherished guarantee evaporates anyway.
 
@@ -46,7 +46,7 @@ Re-seeding is real and good, but it's a separate matter from blocking. Fresh ent
 
 ### Kernel structure (and the Linux 4.8 change)
 
-Before Linux 4.8, /dev/random and /dev/urandom were equivalent: both drew from the same CSPRNG-driven pool, differing only in blocking behavior. From Linux 4.8 onward, the equivalence was dropped — /dev/urandom's output now comes directly from a CSPRNG rather than the entropy pool. This is not a security problem, for all the reasons above: CSPRNG output is exactly what you want.
+Before Linux 4.8, /dev/random and /dev/urandom were equivalent: both drew from the same CSPRNG-driven pool, differing only in blocking behavior. From Linux 4.8 onward, the equivalence was dropped — /dev/urandom's output came directly from a CSPRNG rather than the entropy pool. This is not a security problem, for all the reasons above: CSPRNG output is exactly what you want. (This reflects the post-4.8 design; the kernel's CSPRNG internals kept evolving in later releases.)
 
 ### The boot-time exception (the one genuine caveat)
 
@@ -66,7 +66,7 @@ FreeBSD's model is the cleaner design: no /dev/random vs /dev/urandom distinctio
 
 - **Never let randomness block a user-facing operation.** Don't make a mail server connection hang "to be safe." Blocking drives users to dangerous workarounds; non-blocking CSPRNG output is already secure.
 
-- **Stop worrying about entropy "running out."** Once seeded with ~256 bits, a CSPRNG is good effectively forever. Don't add entropy-counter checks, ioctl hacks, or re-read loops chasing a number the kernel can only estimate anyway.
+- **Stop worrying about entropy "running out."** Once seeded with ~256 bits, a CSPRNG is good for the life of the process, barring a state compromise (which re-seeding heals). Don't add entropy-counter checks, ioctl hacks, or re-read loops chasing a number the kernel can only estimate anyway.
 
 - **Handle early boot deliberately.** This is the one real risk. Ensure a seed file is loaded before generating keys, or use an interface like `getrandom()` that waits for the pool to be initialized exactly once — not /dev/random's perpetual blocking.
 

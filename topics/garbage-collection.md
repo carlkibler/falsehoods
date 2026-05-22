@@ -17,7 +17,7 @@
 
 ## Where It Gets Complicated
 
-The recurring theme: nearly every GC falsehood is *sometimes* true. These are softer than the usual falsehoods-article absolutes. The point isn't that the beliefs are always wrong — it's that they're not *always right*, and which way they fall comes down to tuning and what your application actually needs.
+The recurring theme: nearly every GC falsehood is *sometimes* true. The point isn't that the beliefs are always wrong — it's that they're not *always right*, and which way they fall comes down to tuning and what your application actually needs.
 
 ### Pauses & latency
 
@@ -25,7 +25,7 @@ The recurring theme: nearly every GC falsehood is *sometimes* true. These are so
 
 But "GC sometimes pauses" survives as a real caveat. Some incremental collectors still do certain steps in one uninterruptible shot — classically, the initial scan of the program stack. Even that can be made incremental, and a good incremental GC should guarantee a maximum pause time (page faults and other out-of-its-control events aside).
 
-For tighter budgets, the answer is a different design, not abandoning GC. Concurrent GCs move the bulk of collection to another thread, pausing the main thread only for hand-offs — sub-millisecond. The author's real-world numbers: the BDW GC in batch processing happily ran 500ms pauses because the user never saw them; Firefox's JS engine started at a 10ms incremental budget and now runs 5ms for most web apps, with room to go lower by tuning how often it pauses.
+For tighter budgets, the answer is a different design, not abandoning GC. Concurrent GCs move the bulk of collection to another thread, pausing the main thread only for hand-offs — sub-millisecond. Real-world numbers bear this out: the BDW GC in batch processing happily ran 500ms pauses because the user never saw them; Firefox's JS engine started at a 10ms incremental budget and now runs 5ms for most web apps, with room to go lower by tuning how often it pauses.
 
 ### Reference counting myths
 

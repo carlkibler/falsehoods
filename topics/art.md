@@ -26,7 +26,7 @@
 
 ### Identity and authorship
 
-Attribution rarely reduces to one person. Beyond solo artists you have collaborations, anonymous "cultural makers," and manufacturers. Treat the artwork-to-creator link as a many-to-many relationship with roles, and allow it to be empty or uncertain. The "did my kid paint that?" reflex — *"My kid can paint that"* — misses the point: the question is often not skill but *who actually made it and why*, which is exactly the metadata that's hard to pin down.
+Attribution rarely reduces to one person. Beyond solo artists you have collaborations, anonymous "cultural makers," and manufacturers. Treat the artwork-to-creator link as a many-to-many relationship with roles, and allow it to be empty or uncertain. The *"my kid could paint that"* reflex misses the point: the hard question is usually not skill but *who made it and why* — exactly the metadata that's hard to pin down.
 
 ### Titles and naming
 
@@ -48,17 +48,9 @@ The assumption that *an artwork has a natural, canonical category* is false. Cat
 
 *Art should always be rendered at its maximum size* is wrong — there are real business constraints and art-world norms (rights, gallery preferences, contextual presentation) governing how and how large a work may be shown. Display rules are first-class data, not a CSS afterthought.
 
-### Why people buy, and who buys
+### Why people buy
 
-Several intertwined myths: that *only rich people buy art*; that people buy *mostly for visual qualities*. In practice people buy because of a story, because of what the work says, or because they can't stop thinking about it — and not only the wealthy participate. Your value and recommendation models can't be purely visual or purely price-gated.
-
-### The market and its intermediaries
-
-*The art market needs technology because it's inefficient* — really, technology can expand the whole art world, not just streamline it. *Intermediaries are bad* — galleries actually enable artists to make work for years before anything sells; they're enablers, not obstacles. *Gallerists live fancy luxury lives* — the average gallery owner's salary is far lower than assumed. And *value is determined independently by "the industry"* — no: everyone has opinions, and your own appreciation is genuinely about you.
-
-### Relevance and the broader frame
-
-*The art world is hermetic and irrelevant to daily life* is false: the arts contribute billions to the economy, employ thousands, ripple through urban life, and feed the TV, film, and books everyone consumes. And *art and engineering are orthogonal* — building software for art proves otherwise.
+*People buy art mostly for its visual qualities* is false: people buy because of a story, because of what the work says, or because they can't stop thinking about it. Your value and recommendation models can't be purely visual or purely price-gated.
 
 ### Representation and notation (the deeper trap)
 
