@@ -4,117 +4,109 @@
 
 ## The Big Surprises
 
-- **Unix time can go backwards.** Every time a leap second is added — 27 times as of 2019 — Unix timestamps repeat. At 23:59:60.50 UTC, if you wait half a second, the Unix timestamp decreases by half a second. Two different UTC moments share the same Unix timestamp.
+- **Unix time can literally go backwards.** When a leap second is added (it's happened 27 times since 1972), UTC gets an extra second — 23:59:60 — but Unix time has no room for it, so it *repeats* the last second. If you're at 23:59:60.50 UTC and wait half a second, your Unix timestamp goes *down*.
 
-- **A minute can last more than an hour.** This isn't a joke: older versions of KVM on CentOS had no awareness they were running inside a VM. When the host suspended the VM at 13:00 and resumed it at 15:00, the guest's system clock still said 13:00. Every idle period silently ate time. The VM's clock could drift by hours without any error.
+- **A KVM virtual machine's clock can fall hours behind reality without anyone noticing.** Older KVM on CentOS had no awareness it was virtualized: suspend the VM at 13:00, resume it at 15:00, and the guest clock still says 13:00. Depending on idle time, the drift could be enormous — and nothing complained until something broke.
 
-- **"CST" is not a unique time zone.** It stands for Central Standard Time (USA), Cuba Summer Time, China Standard Time, *and* Central Standard Time (Australia). Same abbreviation, four wildly different offsets. If you want to identify "Pacific time in the USA" unambiguously, you need `America/Los_Angeles`.
+- **"CST" identifies at least four different time zones.** Central Standard Time (USA), Cuba Summer Time, China Standard Time, and Central Standard Time (Australia) all share the abbreviation. Same goes for PST: Pakistan Standard Time and Pacific Standard Time. If you want unambiguous, use `America/Los_Angeles`.
 
-- **Australia/Lord_Howe observes DST in 30-minute increments.** The widespread assumption that DST always shifts by exactly one hour is wrong. Lord Howe Island advances its clocks by only 30 minutes. Historical examples go further — some jurisdictions have shifted by 2 hours.
+- **Morocco suspends Daylight Saving Time in the middle of summer — for Ramadan.** DST is paused for roughly a month each year depending on the Islamic calendar, meaning a single calendar year in Morocco can contain *two* DST transitions in each direction.
 
-- **Morocco suspends DST in the middle of summer.** During Ramadan, Morocco cancels its summer time observance for a month, then resumes it. DST that starts, stops, and restarts within a single "summer" is not a theoretical edge case.
+- **Australia/Lord_Howe Island adjusts clocks by only 30 minutes for DST**, not an hour. The assumption that DST is always a one-hour shift is false on a currently-inhabited island.
 
-- **December 28, 2014 belongs to week 1 of 2015.** ISO week numbering means "week 1 of year N" can contain days from the previous December. The assumption that week 1 starts in January is simply false.
+- **December 28, 2014 belongs to week 1 of 2015.** ISO week numbering doesn't care about calendar years. Week 1 is defined as the week containing the first Thursday of the year, so days at the very end of December can legally belong to the *following* year's week 1.
 
-- **A timestamp for a future event stored in UTC can still be wrong.** If the time zone rules for that location change between when you store the event and when it occurs — which happened 10 times in 2014 alone, per the Olson database — converting back from UTC to local time gives the wrong wall-clock time.
+- **Two subsequent calls to `getCurrentTime()` can return the same value, or the second can be *smaller* than the first.** Clock resolution, leap seconds, and NTP corrections all conspire against the assumption of strict monotonic increase. Building unique IDs from timestamps is a trap.
 
-- **Two subsequent calls to `getCurrentTime()` can return the same result, or the second can be *smaller* than the first.** Both are real behaviors, not theoretical ones. Leap seconds cause the repeat-or-skip; clock corrections and NTP adjustments cause the backwards jump.
+- **Storing a future event as UTC and a time zone is not enough to guarantee you can recover the correct wall time.** If the region's time zone rules change between when you store the event and when it occurs — and they do: the Olson/tz database received 10 updates in 2014 alone — converting back from UTC may produce the wrong local time.
 
 ---
 
 ## Where It Gets Complicated
 
-### Calendar Arithmetic
+### Days, Hours, and Seconds Aren't What You Think
 
-The calendar is not a clean numeric sequence. Months have 28, 29, 30, or 31 days — and which one depends on the year, the calendar system, and sometimes the hemisphere. February is not always 28 days. Years are not always 365 days, nor are they always 365 or 366 days — some calendar systems diverge entirely from the Gregorian model (in the Jewish calendar, days start at sunset, not midnight).
+A day is not always 24 hours. DST transitions produce 23-hour and 25-hour days (and historically, transitions of 30 minutes or 2 hours have existed). Even a "UTC day" isn't always 86,400 seconds: leap seconds produce days of 86,401 or, theoretically, 86,399 seconds.
 
-Leap years are not simply "every year divisible by 4." The full Gregorian rule involves divisibility by 100 and 400, and even that rule has exceptions in some historical contexts. Non-leap years can contain leap days in edge cases involving calendar transitions.
+Unix time sidesteps this by *assuming* every day is exactly 86,400 seconds and either repeating or omitting a timestamp to compensate. As of 2019, this means Unix time is running 27 seconds behind true UTC — the 27 inserted leap seconds are simply missing from the count. The formal definition is: *Unix time is the number of seconds since 1 January 1970 00:00:00 UTC, minus all leap seconds.*
 
-The day of the month does not always advance from N to N+1. Historical calendar reforms introduced discontinuities — entire days were skipped. The assumption that each calendar date is followed by the next in sequence is false by historical precedent.
+A minute is not always 60 seconds. When a leap second is inserted, a minute has 61 seconds, and `23:59:60` is a valid timestamp. Negative leap seconds (a 59-second minute) haven't happened yet but are theoretically possible.
 
-Merging two dates by taking the month from one and the day/year from another does not reliably produce a valid date — even if both source years are leap years.
+`Thread.sleep(1000)` does not guarantee sleeping for exactly 1,000 milliseconds, or even *at least* 1,000 milliseconds. And if a process runs for *n* seconds and then terminates, approximately *n* seconds will not necessarily have elapsed on the system clock — especially if the clock was adjusted mid-run.
 
-### Hours, Days, and Weeks
+### The Calendar Is a Patchwork
 
-There are not always 24 hours in a day. DST transitions create 23-hour and 25-hour days. Some historical DST rules have created even stranger lengths. Even in UTC, leap seconds mean some days have 86,401 seconds and some could theoretically have 86,399.
+Months do not have 30 or 31 days — February alone can be 28 or 29. Years are not always 365 days. Leap years are not simply "every year divisible by 4"; the actual rule involves divisibility by 100 and 400. Non-leap years can contain a leap day if time zone rules shift the calendar boundary in certain edge cases.
 
-A 24-hour period does not always begin and end in the same day, week, month, or year. A week does not always begin and end in the same month or year.
+The day of the month does not always advance from N to N+1. Historical calendar reforms introduced discontinuities. And the day before Saturday is not *always* Friday — at the International Date Line, flying across it can skip or repeat a day entirely.
 
-The time `23:59:60` is not always invalid — it is the correct representation of a leap second. The time `2014-03-30 02:20:42` in `Europe/Copenhagen` does not exist at all, because DST jumped the clock forward from 02:00 to 03:00, deleting that hour.
+There is not one calendar system. The Jewish calendar begins days at *sunset*, not midnight. ISO week numbers, Gregorian dates, and Julian dates coexist. The year zero exists in some systems and not others. The standard library may not support negative years or years above 10,000.
 
-Conversely, `2:17` during the autumn DST rollback is ambiguous: the clock passes 2:17 twice, and without additional context you cannot know which occurrence someone means.
+Merging dates carelessly — taking the month from one date and the day/year from another — can produce invalid results, even if both source dates were individually valid and both years were leap years.
 
-Days do not universally begin at midnight. In the Jewish calendar, days begin at sunset.
+### Time Zones Are Not Offsets
 
-Weeks do not universally start on Monday. The weekend is not universally Saturday and Sunday. Holidays do not always span whole days.
+A time zone abbreviation is not a unique identifier. A UTC offset (`+05:30`) is not a time zone. A time zone is a named rule set (like `Asia/Kolkata`) that encodes the full history of offset changes, DST rules, and exceptions for a region.
 
-### Time Zones
+Offsets between two time zones do not stay constant. They change when one region observes DST and the other doesn't, or when a government simply decides to change its offset — sometimes with very little notice. Two adjacent time zones are not necessarily within one hour of each other (the International Date Line is the extreme case). Time zones don't always differ by whole hours: India is UTC+5:30, Nepal is UTC+5:45, and some historical zones have differed by seconds.
 
-Time zones are not just offsets. The offset for a given zone changes with DST, with government decisions, and with historical reforms. In 2014, the Olson/IANA timezone database was updated 10 times. As of January 2015, Ubuntu 14's `tzdata` package still contained data only from June 2014, missing the `2014j` release from November.
+You cannot determine a time zone from a city, a state, or a province alone. Indiana counties historically observed different rules. China spans five geographic time zones but uses only one (UTC+8). And GMT and UTC are *not* the same thing: UTC is a time standard; GMT is a time zone. Britain uses GMT in winter but switches to BST (UTC+1) in summer.
 
-Time zones do not always differ by whole hours. Nepal is UTC+5:45. India is UTC+5:30. Some zones differ by 15-minute increments. The assumption that adjacent time zones are at most one hour apart is dangerous for avionics crossing the International Date Line.
+DST does not start and end on the same date everywhere, or even in the same half of the year. In the Southern Hemisphere, "summer time" begins in October and ends in March. Reading a client's clock and comparing to UTC is not a reliable way to determine their time zone — many time zones share the same offset.
 
-You cannot determine a time zone from a city, state, or province. You cannot determine it from a country alone. You need an explicit IANA identifier like `America/Los_Angeles`.
+The local time offset will not necessarily stay constant during office hours. Governments have changed DST rules mid-year. The Olson database had 10 releases in 2014; as of January 2015, Ubuntu 14's `tzdata` package was still on the June 2014 snapshot, missing the November 2014 `2014j` release.
 
-GMT and UTC are not the same. Britain does not always use GMT — it uses BST (British Summer Time) during summer, which is UTC+1.
+### Ambiguous and Non-Existent Times
 
-The local time offset does not stay constant during office hours. DST transitions happen at 2:00 AM in many jurisdictions — well within a business day in some edge cases — and government-mandated offset changes can happen with very little notice.
+A local date-time combination is not always valid. In `Europe/Copenhagen`, `2014-03-30 02:20:42` does not exist — clocks spring forward from 02:00 to 03:00, vaporizing that hour.
 
-DST does not begin and end at the same time in every time zone, or even in the same hemisphere. Southern-hemisphere countries like Australia start DST in October and end it in March. The assumption that DST runs from spring to fall is northern-hemisphere parochialism.
+A local time is not always unambiguous. In any region that falls back, the clock passes through the same hour twice. If someone tells you the local time was `2:17` during a fall-back transition, you cannot know which `2:17` they mean without additional information.
 
-### Unix Time and System Clocks
+Storing a timestamp as UTC doesn't fully solve this for *future* events: if the time zone rules change between now and then, the UTC value may convert back to the wrong wall-clock time.
 
-Unix time is not the number of seconds since January 1, 1970 00:00:00 UTC. It is that count *minus leap seconds*. As of 2019, 27 leap seconds have been inserted, all of which are absent from Unix time.
+### Clocks, Servers, and Distributed Systems
 
-When a leap second is added, Unix time repeats the last second of the day. When a leap second is removed (not yet happened in practice, but defined behavior), Unix time skips a second — meaning if you wait one second starting at 23:59:58 UTC on such a day, the Unix timestamp advances by two.
+The system clock is not always set to the correct time, or even close to it. It is not always ahead of or behind by a consistent number of seconds. The server clock and the client clock may differ by seconds, minutes, hours, or *decades* — and if they're out of sync, the delta is not necessarily consistent.
 
-`Thread.sleep(1000)` does not sleep for exactly 1000 milliseconds, and it does not guarantee sleeping for *at least* 1000 milliseconds. System clock corrections, NTP adjustments, and scheduler behavior all interfere.
+Two subsequent calls to `getCurrentTime()` may return the same value (limited resolution), or the second may be smaller than the first (NTP step correction, leap second). A timestamp does not reliably represent the time an event *actually* occurred — it represents what the clock said, which may be wrong.
 
-The system clock is not always correct. It is not always approximately correct. It is not always off by a consistent amount. Server and client clocks can differ by decades — not just seconds — and that difference need not be consistent over time.
+A timestamp of high precision is not safely unique. Two events occurring in rapid succession on the same or different machines can receive identical timestamps.
 
-A timestamp does not necessarily represent the time an event actually occurred. A timestamp of high precision is not unique. Two date objects created in adjacent lines of code may not represent the same moment (a reliable Heisenbug generator). You cannot wait for exactly `HH:MM:SS` by sampling once per second — you may sample right over it.
+Establishing a total ordering on timestamps across systems is not reliable. `It's possible to establish a total ordering on timestamps that is useful outside your system` is false.
 
-The precision of a `getCurrentTime()` return type is not the same as the precision of the underlying function. If you convert a millisecond-precision timestamp to second precision, you cannot safely discard the fractional part — not even if it is less than 0.5.
+### Human-Readable Formats
 
-Unix time is not completely ignorant of everything except seconds — its handling of leap seconds is itself a form of encoding calendar knowledge, just broken calendar knowledge.
+`05/07/11` is not universally understood. Is that May 7, 2011? July 5, 2011? July 11, 2005? The format is ambiguous across locales.
 
-### Timestamps, Formats, and Ordering
+`24:12:34` is not necessarily an invalid time — some systems and standards permit hour values of 24 to indicate midnight of the following day.
 
-`05/07/11` is not a universally understood date format. It could be May 7, 2011; July 5, 2011; May 7, 1911; or July 11, 2005, depending on locale and convention.
+Not every integer is a valid year. Not every year has four digits. If you have a date in `YYYY-MM-DD` format, the year part is not guaranteed to be exactly four characters for years before 1000 or after 9999. Displaying a datetime does not guarantee the displayed year matches the stored year — or that the difference is less than 2.
 
-Timestamps are not always in seconds since epoch. They are not always in the same format. They do not always have the same precision. You cannot establish a total ordering on timestamps that is meaningful outside your own system.
+You cannot reliably parse a datetime format character by character without backtracking. Formats like `--12Z` or `P12Y34M56DT78H90M12.345S` are valid ISO 8601 constructs that will break naive parsers.
 
-The difference between two timestamps is not an accurate measure of elapsed time if any leap seconds occurred between them, or if the system clock was adjusted.
-
-Two-digit years are not safely assumed to fall between 1900 and 2099. Not every integer is a valid year — the standard library may not support negative years or years above 10,000. A date displayed with a four-character year field may not actually have four characters if the year is outside the expected range.
-
-The format `P12Y34M56DT78H90M12.345S` (an ISO 8601 duration) and `--12Z` (a truncated date) are real formats you may encounter. W3C-published algorithms for adding durations to dates do not work in all cases.
-
-There is no single timestamp for a given date and time that is unambiguous — a date/time combination without an explicit time zone offset can refer to many different moments.
-
-### Relativistic and Exotic Edge Cases
-
-Time does not pass at the same rate at the top of a mountain and at the bottom of a valley — general relativity is measurable with modern atomic clocks. All measurements on a given clock occur within a single frame of reference, but different clocks are in different frames. As Bruce Sterling noted, software running on a spacecraft orbiting a black hole would experience time dilation. This is not purely theoretical: GPS satellites require relativistic corrections to stay accurate.
+Two-digit years are not safely assumed to fall in 1900–2099.
 
 ---
 
 ## If You Build This
 
-1. **Store times in UTC; store the IANA time zone identifier separately.** Never store only an offset. Offsets change. `America/Los_Angeles` does not. When displaying local time, convert at render time using the stored zone identifier and a current timezone database.
+1. **Use IANA time zone names, never abbreviations or raw offsets.** `America/Los_Angeles` is unambiguous. `PST` is not. Store the IANA name alongside any timestamp that will be displayed in local time.
 
-2. **Use a well-maintained, IANA-backed library.** Do not roll your own. Do not trust a library just because it exists — many were written by people who didn't know the domain, and they work fine until they don't. For Elixir, Java, Python, and most modern languages, there are libraries that consume the IANA `tzdata` directly. Keep that data updated: the OS package may lag by months (Ubuntu 14's `tzdata` was 5 months behind as of January 2015).
+2. **Store future events as wall time + IANA zone, not just UTC.** UTC alone cannot survive a government changing its DST rules. Keep the original local time and zone name so you can recompute UTC after a rule update.
 
-3. **Never store a future event as UTC alone.** Store the intended wall-clock time and the IANA zone name together. If the government changes the zone rules before the event occurs — which happened 10 times in 2014 — you can recompute the correct UTC time. If you only stored UTC, you're stuck with the wrong answer.
+3. **Keep your tz database current and automate it.** The Olson database had 10 releases in 2014. Ubuntu 14's package lagged by five months. Pin to a library that ships its own tz data (e.g., Java's `java.time` with `tzdata` updates, or Noda Time on .NET), or build tz updates into your deployment pipeline.
 
-4. **Treat timestamps as approximations, not ground truth.** Do not assume two adjacent `getCurrentTime()` calls return different values, or that the second is larger. Do not assume `Thread.sleep(1000)` sleeps for exactly or at least 1000 ms. Do not assume a timestamp represents when something actually happened. Build systems that tolerate clock skew, repeated timestamps, and backwards jumps.
+4. **Never use wall-clock time for measuring elapsed duration.** Use a monotonic clock. Wall clocks can jump forward, jump backward (NTP correction, leap second, VM resume), or stall. `System.nanoTime()` in Java, `CLOCK_MONOTONIC` in POSIX, `time.monotonic()` in Python — these exist for a reason.
 
-5. **Never parse or display dates with hand-rolled string logic.** `05/07/11` is not a date — it's an ambiguous string. Use ISO 8601 (`YYYY-MM-DD`) for interchange. Be aware that years outside 0–9999 may break format assumptions, and that displaying a stored datetime can silently change the year if the time zone conversion crosses a year boundary.
+5. **Treat timestamps as approximate, not exact or unique.** Don't generate unique IDs from timestamps alone. Don't assume two calls to `now()` return different values. Don't assume the second call returns a larger value. Add a sequence number, a random component, or use UUIDs.
 
-6. **Test against real calendar edge cases, not just "normal" dates.** Run tests against DST transition days, leap days, leap seconds, year boundaries, and ISO week-year boundaries (December 28 is in week 1 of the following year). The fact that a date-based function works today does not mean it will work on any date.
+6. **Test at boundary conditions, not just "today."** DST transitions, leap years, week-year boundaries (December 28–January 3), and the end of a month are where date bugs live. A date function that works today may silently break on December 31 or at 01:59:59 on a spring-forward Sunday.
 
 ## Sources
 
-- [Falsehoods about Time (Noah Sussman)](http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time)
-- [More Falsehoods about Time (Noah Sussman)](http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time)
-- [Falsehoods about Time and Time Zones (Creative Deletion)](https://www.creativedeletion.com/2015/01/28/falsehoods-programmers-date-time-zones.html)
-- [Falsehoods about Unix Time (Alex Chan)](https://alexwlchan.net/2019/05/falsehoods-programmers-believe-about-unix-time/)
+Consolidated from the works below. Each is linked to its original and to a Markdown copy archived in this repo for preservation; please visit the originals.
+
+- [Falsehoods about Time (Noah Sussman)](http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time) · [archived copy](../archive/dates-and-time/01-falsehoods-about-time-noah-sussman.md)
+- [More Falsehoods about Time (Noah Sussman)](http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time) · [archived copy](../archive/dates-and-time/02-more-falsehoods-about-time-noah-sussman.md)
+- [Falsehoods about Time and Time Zones (Creative Deletion)](https://www.creativedeletion.com/2015/01/28/falsehoods-programmers-date-time-zones.html) · [archived copy](../archive/dates-and-time/03-falsehoods-about-time-and-time-zones-creative-dele.md)
+- [Falsehoods about Unix Time (Alex Chan)](https://alexwlchan.net/2019/05/falsehoods-programmers-believe-about-unix-time/) · [archived copy](../archive/dates-and-time/04-falsehoods-about-unix-time-alex-chan.md)

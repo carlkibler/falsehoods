@@ -9,7 +9,8 @@
       },
       {
         "label": "Falsehoods about Names — With Examples (Shine Solutions)",
-        "url": "https://shinesolutions.com/2018/01/08/falsehoods-programmers-believe-about-names-with-examples/"
+        "url": "https://shinesolutions.com/2018/01/08/falsehoods-programmers-believe-about-names-with-examples/",
+        "fetch_url": "https://web.archive.org/web/2021/https://shinesolutions.com/2018/01/08/falsehoods-programmers-believe-about-names-with-examples/"
       },
       {
         "label": "Personal Names Around the World (W3C)",
@@ -62,6 +63,404 @@
       {
         "label": "Falsehoods about Unix Time (Alex Chan)",
         "url": "https://alexwlchan.net/2019/05/falsehoods-programmers-believe-about-unix-time/"
+      }
+    ]
+  },
+  "emails": {
+    "title": "Falsehoods About Emails",
+    "hook": "Your email-validation regex is wrong, and the RFC is far weirder than you think.",
+    "sources": [
+      {
+        "label": "Falsehoods about Email (beesbuzz)",
+        "url": "https://beesbuzz.biz/code/439-Falsehoods-programmers-believe-about-email"
+      },
+      {
+        "label": "I Knew How to Validate an Email Until I Read the RFC (Haacked)",
+        "url": "https://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx/"
+      },
+      {
+        "label": "Your E-Mail Validation Logic is Wrong (netmeister)",
+        "url": "https://www.netmeister.org/blog/email.html"
+      }
+    ]
+  },
+  "phone-numbers": {
+    "title": "Falsehoods About Phone Numbers",
+    "hook": "A phone number isn't a number, isn't unique, and won't hold still.",
+    "sources": [
+      {
+        "label": "Falsehoods about Phone Numbers (Google libphonenumber)",
+        "url": "https://github.com/google/libphonenumber/blob/master/FALSEHOODS.md"
+      }
+    ]
+  },
+  "geography": {
+    "title": "Falsehoods About Geography",
+    "hook": "Places don't have one name, borders move, and coordinates lie.",
+    "sources": [
+      {
+        "label": "Falsehoods about Geography (wiesmann)",
+        "url": "https://wiesmann.codiferes.net/wordpress/archives/15187"
+      },
+      {
+        "label": "Falsehoods about Maps (atlefren)",
+        "url": "http://www.atlefren.net/post/2014/09/falsehoods-programmers-believe-about-maps/",
+        "fetch_url": "https://web.archive.org/web/20250516080728/http://www.atlefren.net/post/2014/09/falsehoods-programmers-believe-about-maps/"
+      },
+      {
+        "label": "Falsehoods about Weather (shkspr.mobi)",
+        "url": "https://shkspr.mobi/blog/2024/06/falsehoods-programmers-believe-about-weather/"
+      }
+    ]
+  },
+  "text-and-unicode": {
+    "title": "Falsehoods About Text and Unicode",
+    "hook": "Unicode is not a character set, a character is not a code point, and string length is a lie.",
+    "sources": [
+      {
+        "label": "The Absolute Minimum About Unicode (Joel Spolsky)",
+        "url": "https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/"
+      },
+      {
+        "label": "Falsehoods about Plain Text (Jeremy Hussell)",
+        "url": "https://jeremyhussell.blogspot.com/2017/11/falsehoods-programmers-believe-about.html"
+      },
+      {
+        "label": "Unicode Misconceptions (Jean Abou Samra)",
+        "url": "https://jean.abou-samra.fr/blog/unicode-misconceptions/",
+        "fetch_url": "https://web.archive.org/web/2023/https://jean.abou-samra.fr/blog/unicode-misconceptions/"
+      },
+      {
+        "label": "Let's Stop Ascribing Meaning to Code Points (Manish Goregaokar)",
+        "url": "https://manishearth.github.io/blog/2017/01/14/stop-ascribing-meaning-to-unicode-code-points/"
+      }
+    ]
+  },
+  "networks": {
+    "title": "Falsehoods About Networks",
+    "hook": "The network is not reliable, an IP address has many spellings, and DNS is not what you think.",
+    "sources": [
+      {
+        "label": "Falsehoods about Networks (Errata Security)",
+        "url": "http://blog.erratasec.com/2012/06/falsehoods-programmers-believe-about.html",
+        "fetch_url": "https://web.archive.org/web/20250215201837/http://blog.erratasec.com/2012/06/falsehoods-programmers-believe-about.html"
+      },
+      {
+        "label": "Fallacies of Distributed Computing (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing"
+      },
+      {
+        "label": "There's more than one way to write an IP address (ma.ttias.be)",
+        "url": "https://ma.ttias.be/theres-more-than-one-way-to-write-an-ip-address/"
+      },
+      {
+        "label": "IDN is crazy (Daniel Stenberg)",
+        "url": "https://daniel.haxx.se/blog/2022/12/14/idn-is-crazy/"
+      }
+    ]
+  },
+  "transportation": {
+    "title": "Falsehoods About Transportation",
+    "hook": "Aviation data is messier than the planes, and a seat map is not a grid.",
+    "sources": [
+      {
+        "label": "Falsehoods about Aviation (FlightAware)",
+        "url": "https://flightaware.engineering/falsehoods-programmers-believe-about-aviation/"
+      },
+      {
+        "label": "Falsehoods about Airline Seat Maps (Duffel)",
+        "url": "https://duffel.com/blog/falsehoods-about-seat-maps"
+      }
+    ]
+  },
+  "typography": {
+    "title": "Falsehoods About Typography",
+    "hook": "Fonts lie about their metrics, and case is not a simple toggle.",
+    "sources": [
+      {
+        "label": "Falsehoods about Fonts (RoelN)",
+        "url": "https://github.com/RoelN/Font-Falsehoods"
+      },
+      {
+        "label": "Truths programmers should know about case (James Bennett)",
+        "url": "https://www.b-list.org/weblog/2018/nov/26/case/"
+      }
+    ]
+  },
+  "web": {
+    "title": "Falsehoods About the Web",
+    "hook": "HTML, URLs, and REST are all weirder than the spec lets on.",
+    "sources": [
+      {
+        "label": "Falsehoods about HTML (aartaka)",
+        "url": "https://www.aartaka.me.eu.org/falsehoods-html"
+      },
+      {
+        "label": "Falsehoods about REST APIs (slinkp)",
+        "url": "http://slinkp.com/falsehoods-programmers-believe-about-apis.html",
+        "fetch_url": "https://web.archive.org/web/20201112010147/http://slinkp.com/falsehoods-programmers-believe-about-apis.html"
+      },
+      {
+        "label": "URLs: It's complicated… (netmeister)",
+        "url": "https://www.netmeister.org/blog/urls.html"
+      },
+      {
+        "label": "The Hidden Complexity of Downloading Favicons (simplecto)",
+        "url": "https://www.simplecto.com/complexity-downloading-favicons-told-in-15-plus-edge-cases/",
+        "fetch_url": "https://web.archive.org/web/20230604033340/https://www.simplecto.com/complexity-downloading-favicons-told-in-15-plus-edge-cases/"
+      }
+    ]
+  },
+  "multimedia": {
+    "title": "Falsehoods About Multimedia",
+    "hook": "Video and music metadata break every clean assumption you bring to them.",
+    "sources": [
+      {
+        "label": "Falsehoods about Video (haasn)",
+        "url": "https://haasn.xyz/posts/2016-12-25-falsehoods-programmers-believe-about-%5Bvideo-stuff%5D.html"
+      },
+      {
+        "label": "Horrible edge cases when dealing with music (dustri)",
+        "url": "https://dustri.org/b/horrible-edge-cases-to-consider-when-dealing-with-music.html",
+        "fetch_url": "https://web.archive.org/web/2023/https://dustri.org/b/horrible-edge-cases-to-consider-when-dealing-with-music.html"
+      }
+    ]
+  },
+  "systems-of-measurement": {
+    "title": "Falsehoods About Systems of Measurement",
+    "hook": "Units don't convert as cleanly as grade-school math promised.",
+    "sources": [
+      {
+        "label": "Falsehoods about Systems of Measurement (Steve Moser)",
+        "url": "https://www.stevemoser.org/posts/dev/falsehoods-programmers-believe-about-systems-of-measurement.html"
+      }
+    ]
+  },
+  "computer-science": {
+    "title": "Falsehoods About Computer Science",
+    "hook": "The tidy abstractions you were taught leak everywhere in practice.",
+    "sources": [
+      {
+        "label": "Falsehoods CS students believe (netmeister)",
+        "url": "https://www.netmeister.org/blog/cs-falsehoods.html"
+      },
+      {
+        "label": "Falsehoods about computer science (srk21)",
+        "url": "https://www.cs.kent.ac.uk/people/staff/srk21/blog/2019/12/02/"
+      }
+    ]
+  },
+  "business-and-money": {
+    "title": "Falsehoods About Business and Money",
+    "hook": "Money, prices, and economics break software in expensive ways.",
+    "sources": [
+      {
+        "label": "Falsehoods about Prices (wiesmann)",
+        "url": "https://wiesmann.codiferes.net/wordpress/archives/22201"
+      },
+      {
+        "label": "Falsehoods about Economics (exple.tive)",
+        "url": "http://exple.tive.org/blarg/2016/09/22/falsehoods-programmers-believe-about-economics/"
+      },
+      {
+        "label": "Falsehoods about IBANs (php-iban)",
+        "url": "https://github.com/globalcitizen/php-iban/blob/master/docs/FALSEHOODS.md"
+      }
+    ]
+  },
+  "cryptocurrency": {
+    "title": "Falsehoods About Cryptocurrency",
+    "hook": "Crypto's clean abstractions hide jagged, irreversible edges.",
+    "sources": [
+      {
+        "label": "Falsehoods about Bitcoin (spring-boot-bitcoin)",
+        "url": "https://github.com/theborakompanioni/spring-boot-bitcoin-starter/blob/master/docs/FALSEHOODS.md"
+      },
+      {
+        "label": "Falsehoods about Cryptocurrencies (spalladino)",
+        "url": "https://gist.github.com/spalladino/a349f0ca53dbb5fc3914243aaf7ea8c6",
+        "fetch_url": "https://gist.githubusercontent.com/spalladino/a349f0ca53dbb5fc3914243aaf7ea8c6/raw"
+      }
+    ]
+  },
+  "job-applicants": {
+    "title": "Falsehoods About Job Applicants",
+    "hook": "Your assumptions about applicants and their histories are mostly wrong.",
+    "sources": [
+      {
+        "label": "Falsehoods about Job Applicants (creatrixtiara)",
+        "url": "https://medium.com/@creatrixtiara/falsehoods-programmers-believe-about-job-applicants-99280437c616",
+        "fetch_url": "https://web.archive.org/web/20170114022820/https://medium.com/@creatrixtiara/falsehoods-programmers-believe-about-job-applicants-99280437c616"
+      }
+    ]
+  },
+  "game-development": {
+    "title": "Falsehoods About Game Development",
+    "hook": "Even a single door is a bottomless pit of design decisions.",
+    "sources": [
+      {
+        "label": "The Door Problem (Liz England)",
+        "url": "https://lizengland.com/blog/2014/04/the-door-problem/"
+      }
+    ]
+  },
+  "art": {
+    "title": "Falsehoods About Art",
+    "hook": "Art objects refuse every database schema you'd design for them.",
+    "sources": [
+      {
+        "label": "Falsehoods about Art (literateprogrammer)",
+        "url": "https://literateprogrammer.blogspot.com/2016/07/falsehoods-programmers-believe-about.html"
+      },
+      {
+        "label": "Programmer Misconceptions about Art (Artsy)",
+        "url": "http://artsy.github.io/blog/2018/04/18/programmer-misconceptions-about-art/"
+      }
+    ]
+  },
+  "floating-point": {
+    "title": "Falsehoods About Floating Point",
+    "hook": "0.1 + 0.2 ≠ 0.3, and that's the least of your problems.",
+    "sources": [
+      {
+        "label": "Floating Point Math (0.30000000000000004.com)",
+        "url": "https://0.30000000000000004.com"
+      }
+    ]
+  },
+  "file-paths": {
+    "title": "Falsehoods About File Paths",
+    "hook": "A path is not a string, and Windows paths are a different animal entirely.",
+    "sources": [
+      {
+        "label": "Myths about File Paths (Yakking)",
+        "url": "https://yakking.branchable.com/posts/falsehoods-programmers-believe-about-file-paths/"
+      },
+      {
+        "label": "The weird world of Windows file paths (Fileside)",
+        "url": "https://www.fileside.app/blog/2023-03-17_windows-file-paths/"
+      }
+    ]
+  },
+  "csvs": {
+    "title": "Falsehoods About CSVs",
+    "hook": "CSV has a spec, and almost nothing in the wild obeys it.",
+    "sources": [
+      {
+        "label": "Falsehoods about CSVs (Donat Studios)",
+        "url": "https://donatstudios.com/Falsehoods-Programmers-Believe-About-CSVs"
+      }
+    ]
+  },
+  "null-pointers": {
+    "title": "Falsehoods About Null Pointers",
+    "hook": "Null pointers are more cursed than pointers, and pointers are already cursed.",
+    "sources": [
+      {
+        "label": "Falsehoods about null pointers (purplesyringa)",
+        "url": "https://purplesyringa.moe/blog/falsehoods-programmers-believe-about-null-pointers/"
+      }
+    ]
+  },
+  "undefined-behavior": {
+    "title": "Falsehoods About Undefined Behavior",
+    "hook": "Undefined behavior can cause literally anything — for a broader 'anything' than you imagine.",
+    "sources": [
+      {
+        "label": "Falsehoods about Undefined Behavior (predr.ag)",
+        "url": "https://predr.ag/blog/falsehoods-programmers-believe-about-undefined-behavior/"
+      }
+    ]
+  },
+  "cpu-caches": {
+    "title": "Falsehoods About CPU Caches",
+    "hook": "What you believe about CPU caches is quietly breaking your concurrency.",
+    "sources": [
+      {
+        "label": "Myths about CPU Caches (Rajiv Prabhakar)",
+        "url": "https://software.rajivprab.com/2018/04/29/myths-programmers-believe-about-cpu-caches/",
+        "fetch_url": "https://web.archive.org/web/2022/https://software.rajivprab.com/2018/04/29/myths-programmers-believe-about-cpu-caches/"
+      }
+    ]
+  },
+  "yaml": {
+    "title": "Falsehoods About YAML",
+    "hook": "YAML will turn your config into numbers, booleans, and the country of Norway.",
+    "sources": [
+      {
+        "label": "The YAML document from hell (Ruud van Asseldonk)",
+        "url": "https://ruudvanasseldonk.com/2023/01/11/the-yaml-document-from-hell"
+      }
+    ]
+  },
+  "versions": {
+    "title": "Falsehoods About Software Versions",
+    "hook": "A version number is not a number, and it isn't ordered the way you think.",
+    "sources": [
+      {
+        "label": "Falsehoods about Versions (xenoterracide)",
+        "url": "https://github.com/xenoterracide/falsehoods/blob/master/versions.md"
+      }
+    ]
+  },
+  "pagination": {
+    "title": "Falsehoods About Pagination",
+    "hook": "Page 2 is not simply the rows after page 1.",
+    "sources": [
+      {
+        "label": "Falsehoods about Pagination (Matt Palmer)",
+        "url": "https://www.hezmatt.org/~mpalmer/blog/2018/12/12/falsehoods-programmers-believe-about-pagination.html"
+      }
+    ]
+  },
+  "search": {
+    "title": "Falsehoods About Search",
+    "hook": "Search is not SELECT … LIKE '%query%'.",
+    "sources": [
+      {
+        "label": "Falsehoods about Search (OpenSource Connections)",
+        "url": "https://opensourceconnections.com/blog/2019/05/29/falsehoods-programmers-believe-about-search/"
+      }
+    ]
+  },
+  "cve": {
+    "title": "Falsehoods About CVEs",
+    "hook": "A CVE is not a vulnerability, and 36 other confusions.",
+    "sources": [
+      {
+        "label": "Falsehoods about CVEs (Jonathan Leitschuh)",
+        "url": "https://medium.com/@jonathan.leitschuh/falsehoods-people-believe-about-cves-85c1d063ffda",
+        "fetch_url": "https://web.archive.org/web/2023/https://medium.com/@jonathan.leitschuh/falsehoods-people-believe-about-cves-85c1d063ffda"
+      }
+    ]
+  },
+  "garbage-collection": {
+    "title": "Falsehoods About Garbage Collection",
+    "hook": "GC doesn't mean you can't leak, and it isn't unpredictable magic.",
+    "sources": [
+      {
+        "label": "Falsehoods about garbage collection (Paul Bone)",
+        "url": "https://paul.bone.id.au/blog/2018/10/19/gc-falsehoods/"
+      }
+    ]
+  },
+  "urandom": {
+    "title": "Falsehoods About /dev/urandom",
+    "hook": "Everything everyone repeats about /dev/urandom vs /dev/random is wrong.",
+    "sources": [
+      {
+        "label": "Myths about /dev/urandom (Thomas Hühn)",
+        "url": "https://www.2uo.de/myths-about-urandom"
+      }
+    ]
+  },
+  "event-driven-systems": {
+    "title": "Falsehoods About Event-Driven Systems",
+    "hook": "Messages arrive once, in order, exactly as sent — and other comforting lies.",
+    "sources": [
+      {
+        "label": "Falsehoods about Event-Driven Systems (dimtion)",
+        "url": "https://dimtion.fr/blog/falsehoods-event-driven/"
       }
     ]
   }

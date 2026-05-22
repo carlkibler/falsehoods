@@ -20,11 +20,15 @@ prompts/
   reference-doc.md     structure + rules with {{TITLE}} {{HOOK}} {{SOURCE_COUNT}} placeholders
   <format>.md          add more for other output types (presentation, cheatsheet, …)
 scripts/
-  build-topic.sh       fetch sources → synthesize via cheap model → write topics/<slug>.md
+  build-topic.sh       fetch sources → synthesize → write topics/<slug>.md
+  build-all.sh         run build-topic.sh across every slug (skips existing unless --force)
   propose-topic.py     pull candidate sources for a topic out of the awesome-falsehood list
 topics/<slug>.md       the deliverables
-sources/<slug>/        gitignored cache of fetched source markdown + _packet.md
+archive/<slug>/        COMMITTED Markdown copies of each source (attributed) — preservation
+sources/<slug>/        gitignored scratch: _packet.md (fed to model) + _sources.md
 ```
+
+Each entry in `topics.json` `sources[]` is `{label, url}`, plus an optional `fetch_url` to fetch from a mirror (e.g. a Wayback snapshot) when the live page is JS-walled — the citation still uses `url`.
 
 ## The core insight (read this before changing anything)
 
@@ -77,7 +81,17 @@ scripts/build-topic.sh <slug>            # default model sonnet, format referenc
 scripts/build-topic.sh <slug> --force    # overwrite an existing doc
 ```
 
-The script: fetches each source (3-tier: `curl|pandoc` → thinness check → flag for Playwright), assembles `sources/<slug>/_packet.md`, calls `agent <model> --file packet …` with the externalized prompts, strips any leading whitespace, and appends a **deterministic `## Sources`** list from `topics.json` (never model-generated, so links never hallucinate).
+The script: fetches each source (3-tier: `curl|pandoc` → thinness check → flag for Playwright), writes a **committed, attributed archive copy** to `archive/<slug>/` (see below), assembles `sources/<slug>/_packet.md`, calls `agent <model> --file packet …` with the externalized prompts, strips any leading whitespace, and appends a **deterministic `## Sources`** section (built during fetch, never model-generated — links never hallucinate). Each Sources entry links both the **original** and the **archived copy**.
+
+To build every topic at once:
+
+```bash
+scripts/build-all.sh            # builds topics missing a doc
+scripts/build-all.sh --force    # rebuild everything
+scripts/build-all.sh --dry-run --force   # fetch-check all sources, no synthesis
+```
+
+It reports a summary and flags any topics with truncation warnings or fetch gaps.
 
 It then runs a **truncation guard**: if the output is missing the final `## If You Build This` section, the model hit its output-token ceiling and the doc is cut off mid-sentence. The script warns; rebuild with a stronger model, more `--max-tokens` headroom (currently 32000), or fewer/smaller sources.
 
@@ -106,8 +120,15 @@ Repeat per topic. Update the topic index table in `README.md`. Commit.
 
 When the fetch flags `⚠ PLAYWRIGHT NEEDED <url>`, `curl` got a near-empty shell because the page renders content with JavaScript. To rescue that source, see `references/playwright-fetch.md` for the exact procedure (navigate with the Playwright MCP, extract the article DOM, write cleaned text into the source file, rebuild). Only do this for sources worth the effort — a doc built from 3 of 4 sources is usually still excellent, and the missing source stays credited in `## Sources`.
 
+## Source archiving (preservation)
+
+Falsehoods sources rot — blogs vanish, domains lapse. So every successful fetch is saved as a committed Markdown copy in `archive/<slug>/NN-label.md`, each with an attribution header: the original URL, a note that it's a preservation copy (refer to the original for the author's intended version), and thanks to the author. The `## Sources` section then links both the original and the archived copy.
+
+This is automatic — `build-topic.sh` writes the archive on every run. Just remember to **commit `archive/`** (it is NOT gitignored, unlike `sources/`). Failed fetches get no archive copy and are cited by original URL only.
+
 ## Conventions
 
-- Scripts are dry-run-friendly (`--dry-run` fetches without calling the model). Synthesis writes a file — that's the intended effect, not a mutation to guard.
-- `sources/` is gitignored and fully reproducible; never commit it.
-- Commit `topics.json`, `prompts/`, `scripts/`, `topics/`, and this skill.
+- Scripts are dry-run-friendly (`--dry-run` fetches + archives without calling the model). Synthesis writes a file — that's the intended effect, not a mutation to guard.
+- For a JS-walled or bot-blocked source, add a `fetch_url` (usually a Wayback snapshot like `https://web.archive.org/web/2023/<original-url>`) to that source in `topics.json`. Try this before Playwright — it keeps everything in the cheap `curl|pandoc` path. The citation still shows the original `url`.
+- `sources/` is gitignored scratch (packet + sources section); never commit it. **`archive/` IS committed.**
+- Commit `topics.json`, `prompts/`, `scripts/`, `topics/`, `archive/`, and this skill.

@@ -67,9 +67,11 @@ echo "    format: $FORMAT"
 echo ""
 
 # --- Fetch sources ---
-TOPIC_SOURCES_DIR="$SOURCES_DIR/$SLUG"
-mkdir -p "$TOPIC_SOURCES_DIR"
+TOPIC_SOURCES_DIR="$SOURCES_DIR/$SLUG"     # gitignored scratch (packet, sources section)
+ARCHIVE_DIR="$ROOT/archive/$SLUG"          # COMMITTED preservation copies of each source
+mkdir -p "$TOPIC_SOURCES_DIR" "$ARCHIVE_DIR"
 PACKET="$TOPIC_SOURCES_DIR/_packet.md"
+SOURCES_SECTION="$TOPIC_SOURCES_DIR/_sources.md"
 
 {
   echo "# SOURCE PACKET: $TITLE"
@@ -78,16 +80,23 @@ PACKET="$TOPIC_SOURCES_DIR/_packet.md"
   echo ""
 } > "$PACKET"
 
-python3 - "$TOPICS_JSON" "$SLUG" "$TOPIC_SOURCES_DIR" "$PACKET" <<'PY'
+python3 - "$TOPICS_JSON" "$SLUG" "$TOPIC_SOURCES_DIR" "$PACKET" "$ARCHIVE_DIR" "$SOURCES_SECTION" "$TITLE" <<'PY'
 import json, sys, subprocess, os, re
 from html.parser import HTMLParser
 
-topics_json, slug, sources_dir, packet_path = sys.argv[1:]
+topics_json, slug, sources_dir, packet_path, archive_dir, sources_section_path, title = sys.argv[1:]
 with open(topics_json) as f:
     topic = json.load(f)[slug]
 
 sources = topic["sources"]
 MAX_SOURCE_CHARS = 40000  # ~10k tokens each; enough for any blog post
+
+ARCHIVE_NOTE = (
+    "> **Archived for preservation.** This is a Markdown-extracted copy of the original, "
+    "saved here in case it disappears from the web. Formatting and images are not preserved — "
+    "please refer to the original (linked above) for the version as the author intended it.\n>\n"
+    "> With gratitude to the author for compiling these notes, ideas, and facts."
+)
 
 class HTMLCleaner(HTMLParser):
     """Strip nav/footer/script/style bloat; keep article prose.
@@ -158,11 +167,15 @@ def rewrite_github_blob(url):
     return url
 
 
+manifest = []  # (label, url, archive_basename_or_None)
+
 for i, src in enumerate(sources):
     label = src["label"]
-    url = src["url"]
-    out_file = os.path.join(sources_dir, f"{i+1:02d}-{re.sub(r'[^a-z0-9]+', '-', label.lower())[:50]}.md")
-    raw_url = rewrite_github_blob(url)
+    url = src["url"]                          # citation URL (shown in ## Sources)
+    fetch_from = src.get("fetch_url", url)     # optional override for fetching (e.g. a Wayback mirror of a JS-walled page)
+    base = f"{i+1:02d}-{re.sub(r'[^a-z0-9]+', '-', label.lower()).strip('-')[:50]}.md"
+    out_file = os.path.join(archive_dir, base)
+    raw_url = rewrite_github_blob(fetch_from)
     is_markdown = raw_url.endswith(".md") or "raw.githubusercontent.com" in raw_url
 
     print(f"  fetching [{i+1}/{len(sources)}] {label}")
@@ -175,7 +188,7 @@ for i, src in enumerate(sources):
     try:
         fetch = subprocess.run(
             ["curl", "-sL", "-A", "Mozilla/5.0 (compatible; falsehoods-builder)", "--max-time", "30",
-             raw_url if is_markdown else url],
+             raw_url if is_markdown else fetch_from],
             capture_output=True, text=True, timeout=35
         )
 
@@ -197,27 +210,48 @@ for i, src in enumerate(sources):
         print(f"    [tier1 error: {e}]", file=sys.stderr)
 
     if not content or is_thin(content):
-        print(f"  ⚠  thin/failed fetch for: {label}", file=sys.stderr)
-        print(f"  ⚠  PLAYWRIGHT NEEDED: {url}", file=sys.stderr)
-        content = f"[FETCH FAILED via curl/pandoc — model should note this source URL but skip its content: {url}]"
+        print(f"  ⚠  thin/failed fetch for: {label}  (tried: {fetch_from})", file=sys.stderr)
+        print(f"  ⚠  try a Wayback mirror via \"fetch_url\" in topics.json, else PLAYWRIGHT", file=sys.stderr)
+        content = f"[FETCH FAILED via curl/pandoc — model should skip this source's content: {url}]"
         tier = "failed"
 
-    # Cap per-source size
-    if len(content) > MAX_SOURCE_CHARS:
-        content = content[:MAX_SOURCE_CHARS] + f"\n\n[...truncated at {MAX_SOURCE_CHARS} chars for packet size]"
-        print(f"    ⚠ truncated to {MAX_SOURCE_CHARS} chars")
+    # Cap per-source size (for the synthesis packet only; the archive keeps the full text)
+    packet_content = content
+    if len(packet_content) > MAX_SOURCE_CHARS:
+        packet_content = packet_content[:MAX_SOURCE_CHARS] + f"\n\n[...truncated at {MAX_SOURCE_CHARS} chars for packet size]"
+        print(f"    ⚠ truncated to {MAX_SOURCE_CHARS} chars (packet only; archive keeps full text)")
 
-    with open(out_file, "w") as f:
-        f.write(content)
+    # Write the COMMITTED archive copy (attributed), but only for real fetches.
+    if tier != "failed":
+        with open(out_file, "w") as f:
+            f.write(f"# {label}\n\n")
+            f.write(f"> **Original:** <{url}>\n>\n")
+            f.write(ARCHIVE_NOTE + "\n\n")
+            f.write("---\n\n")
+            f.write(content.strip() + "\n")
+        manifest.append((label, url, base))
+    else:
+        manifest.append((label, url, None))
 
     print(f"    tier: {tier}  chars: {len(content)}")
 
-    # Append to packet
+    # Append to packet (gitignored scratch fed to the model)
     with open(packet_path, "a") as pf:
         pf.write(f"\n\n=== SOURCE {i+1}: {label} ===\n")
         pf.write(f"URL: {url}\n\n")
-        pf.write(content)
+        pf.write(packet_content)
         pf.write("\n")
+
+# Write the deterministic ## Sources section: original link + local archived copy.
+with open(sources_section_path, "w") as sf:
+    sf.write("\n## Sources\n\n")
+    sf.write("Consolidated from the works below. Each is linked to its original and to a "
+             "Markdown copy archived in this repo for preservation; please visit the originals.\n\n")
+    for label, url, base in manifest:
+        if base:
+            sf.write(f"- [{label}]({url}) · [archived copy](../archive/{slug}/{base})\n")
+        else:
+            sf.write(f"- [{label}]({url})\n")
 
 print("", flush=True)
 PY
@@ -255,24 +289,13 @@ RESULT=$(~/.claude/bin/agent "$MODEL" --file "$PACKET" --max-tokens 32000 --time
   --system "$SYSTEM_PROMPT" \
   "$SYNTHESIS_PROMPT")
 
-# --- Append deterministic Sources section ---
-SOURCES_MD=$(python3 - "$TOPICS_JSON" "$SLUG" <<'PY'
-import json, sys
-topics_json, slug = sys.argv[1:]
-with open(topics_json) as f:
-    topic = json.load(f)[slug]
-print("\n## Sources\n")
-for src in topic["sources"]:
-    print(f"- [{src['label']}]({src['url']})")
-PY
-)
-
 mkdir -p "$TOPICS_DIR"
 # Strip any leading whitespace/blank lines the model may emit before the # heading.
 CLEAN_RESULT=$(printf '%s' "$RESULT" | python3 -c "import sys; print(sys.stdin.read().lstrip())")
+# Sources section was generated deterministically during fetch (original + archived copy links).
 {
   echo "$CLEAN_RESULT"
-  echo "$SOURCES_MD"
+  cat "$SOURCES_SECTION"
 } > "$OUT_FILE"
 
 echo "  written: $OUT_FILE ($(wc -c < "$OUT_FILE" | tr -d ' ') bytes)"
