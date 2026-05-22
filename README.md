@@ -4,7 +4,7 @@ Everything you're sure about — names, time, addresses, Unicode, money, even fi
 
 The "falsehoods programmers believe about X" genre is sharp and scattered: dozens of great posts, every one a different shape and depth. This pulls the best sources for each topic and merges them into one clean doc — the gut-punch surprises first, then the long tail of why it's harder than it looks, then what to actually do.
 
-34 topics so far. Click any one; they render right here on GitHub.
+36 topics so far. Click any one; they render right here on GitHub.
 
 ## Topics
 
@@ -28,6 +28,7 @@ The "falsehoods programmers believe about X" genre is sharp and scattered: dozen
 ### Text, language & type
 
 - **[Text and Unicode](topics/text-and-unicode.md)** — Unicode is not a character set, a character is not a code point, and string length is a lie.
+- **[Localization](topics/localization.md)** — Translating the strings is the easy 10%. Plurals, dates, money, and word order are the other 90%.
 - **[Typography](topics/typography.md)** — Fonts lie about their metrics, and case is not a simple toggle.
 
 ### Numbers & data formats
@@ -45,6 +46,7 @@ The "falsehoods programmers believe about X" genre is sharp and scattered: dozen
 - **[CPU Caches](topics/cpu-caches.md)** — What you believe about CPU caches is quietly breaking your concurrency.
 - **[Garbage Collection](topics/garbage-collection.md)** — GC doesn't mean you can't leak, and it isn't unpredictable magic.
 - **[File Paths](topics/file-paths.md)** — A path is not a string, and Windows paths are a different animal entirely.
+- **[File Systems](topics/file-systems.md)** — Writing a file looks atomic. It isn't — and your data is one power-cut away from finding out.
 - **[/dev/urandom](topics/urandom.md)** — Everything everyone repeats about /dev/urandom vs /dev/random is wrong.
 
 ### Networks, web & distributed systems

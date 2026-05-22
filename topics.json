@@ -481,5 +481,37 @@
         "url": "https://communities.springernature.com/posts/beyond-the-hype-10-common-misconceptions-about-large-language-models-in-research-and-development"
       }
     ]
+  },
+  "file-systems": {
+    "title": "Falsehoods About File Systems",
+    "hook": "Writing a file looks atomic. It isn't — and your data is one power-cut away from finding out.",
+    "sources": [
+      {
+        "label": "Files are hard (Dan Luu)",
+        "url": "https://danluu.com/file-consistency/"
+      },
+      {
+        "label": "Files are fraught with peril (Dan Luu)",
+        "url": "https://danluu.com/deconstruct-files/"
+      }
+    ]
+  },
+  "localization": {
+    "title": "Falsehoods About Localization",
+    "hook": "Translating the strings is the easy 10%. Plurals, dates, money, and word order are the other 90%.",
+    "sources": [
+      {
+        "label": "Falsehoods about Language (Ben Hamill)",
+        "url": "http://garbled.benhamill.com/2017/04/18/falsehoods-programmers-believe-about-language"
+      },
+      {
+        "label": "Falsehoods about Languages (Lexiconista)",
+        "url": "https://www.lexiconista.com/falsehoods-about-languages/"
+      },
+      {
+        "label": "Localization Failure: Temperature is Hard (Bruce Dawson)",
+        "url": "https://randomascii.wordpress.com/2023/10/17/localization-failure-temperature-is-hard/"
+      }
+    ]
   }
 }
