@@ -4,9 +4,15 @@ Everything you're sure about — names, time, addresses, Unicode, money, even fi
 
 The "falsehoods programmers believe about X" genre is sharp and scattered: dozens of great posts, every one a different shape and depth. This pulls the best sources for each topic and merges them into one clean doc — the gut-punch surprises first, then the long tail of why it's harder than it looks, then what to actually do.
 
-33 topics so far. Click any one; they render right here on GitHub.
+34 topics so far. Click any one; they render right here on GitHub.
 
 ## Topics
+
+### AI
+
+| | |
+|---|---|
+| **[AI](topics/ai.md)** | What's true about AI today is a screenshot, not a law — cost, capability, and behavior all shifted while you read this. |
 
 ### People & identity
 

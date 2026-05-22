@@ -463,5 +463,23 @@
         "url": "https://dimtion.fr/blog/falsehoods-event-driven/"
       }
     ]
+  },
+  "ai": {
+    "title": "Falsehoods About AI",
+    "hook": "What's true about AI today is a screenshot, not a law — cost, capability, and behavior all shifted while you read this.",
+    "sources": [
+      {
+        "label": "Falsehoods Vibe Coders Believe About LLMs (Wilson Hobbs)",
+        "url": "https://wilsonhobbs.com/blog/2025-05-31-falsehoods-vibe-coders"
+      },
+      {
+        "label": "2025: The Year in LLMs (Simon Willison)",
+        "url": "https://simonwillison.net/2025/Dec/31/the-year-in-llms/"
+      },
+      {
+        "label": "Beyond the Hype: 10 Common Misconceptions About LLMs (Springer Nature)",
+        "url": "https://communities.springernature.com/posts/beyond-the-hype-10-common-misconceptions-about-large-language-models-in-research-and-development"
+      }
+    ]
   }
 }
