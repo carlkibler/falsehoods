@@ -2,6 +2,8 @@
 
 > Everything everyone repeats about /dev/urandom vs /dev/random is wrong.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **"/dev/urandom is insecure; always use /dev/random for crypto."** Backwards. On UNIX-like systems, /dev/urandom is the *preferred* source of cryptographic randomness. Real cryptographers say so — Thomas Ptacek's entire considered position is "Use urandom. Use urandom. Use urandom."

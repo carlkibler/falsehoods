@@ -2,6 +2,8 @@
 
 > A CVE is not a vulnerability, and 36 other confusions.
 
+**[Sources & credits ↓](#sources)**
+
 CVE™ is everywhere — in tickets, release notes, investor decks, breach reports — and almost everywhere it's misunderstood. People use it interchangeably with "vulnerability," "exploit," and "security flaw," and assume that every CVE comes with technical details, a fix, a CVSS score, and a confession from the developer who wrote the bug. None of that is reliably true. Inspired by *Falsehoods Programmers Believe About Names*, here's what people wrongly believe about CVEs.
 
 ## The Big Surprises

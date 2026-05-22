@@ -2,6 +2,8 @@
 
 > 0.1 + 0.2 ≠ 0.3, and that's the least of your problems.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **`0.1 + 0.2` does not equal `0.3`.** In most languages it prints `0.30000000000000004`. Your language isn't broken — it's doing IEEE 754 binary floating point, and neither `0.1` nor `0.2` can be stored exactly.

@@ -2,6 +2,8 @@
 
 > GC doesn't mean you can't leak, and it isn't unpredictable magic.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **"GC always means long, large pauses."** True of the very first collectors, false of most modern ones for decades. Incremental GCs do a little work, let your program run, then do a little more — comfortably hitting pauses under 10ms.

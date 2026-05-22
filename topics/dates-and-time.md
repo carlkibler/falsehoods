@@ -2,6 +2,8 @@
 
 > Time isn't a line, a time zone isn't an offset, and the clock can run backwards.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Unix time can literally go backwards.** When a leap second is added (it's happened 27 times since 1972), UTC gets an extra second — 23:59:60 — but Unix time has no room for it, so it *repeats* the last second. If you're at 23:59:60.50 UTC and wait half a second, your Unix timestamp goes *down*.

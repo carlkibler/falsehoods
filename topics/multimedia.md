@@ -2,6 +2,8 @@
 
 > Video and music metadata break every clean assumption you bring to them.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A file can be simultaneously a legal JPEG and a legal MP3.** This isn't a bug or a corruption artifact — it's an inherent consequence of how both formats are structured. Your heuristic-based filetype detection is already wrong.

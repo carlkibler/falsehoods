@@ -2,6 +2,8 @@
 
 > Your email-validation regex is wrong, and the RFC is far weirder than you think.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A valid email address can contain multiple `@` signs.** RFC5321 permits source routing syntax like `@1st.relay,@2nd.relay:user@final.domain`, and common public mail services accept and deliver it just fine.

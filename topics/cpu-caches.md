@@ -2,6 +2,8 @@
 
 > What you believe about CPU caches is quietly breaking your concurrency.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **"Different cores see stale values in their private caches."** On modern x86 (Intel, AMD), hardware keeps every core's cache coherent: if two threads anywhere in the system read the same address, they will never simultaneously read different values. The caches are not dumb storage — they run intricate coherence protocols among themselves.

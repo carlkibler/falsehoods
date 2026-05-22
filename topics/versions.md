@@ -2,6 +2,8 @@
 
 > A version number is not a number, and it isn't ordered the way you think.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Versions are numbers.** They look like `2.5.1`, but a version is structured text — a sequence of fields with their own rules. Treat `1.10` as the float `1.1` and you've just declared version 10 equal to version 1.

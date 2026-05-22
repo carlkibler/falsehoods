@@ -2,6 +2,8 @@
 
 > Page 2 is not simply the rows after page 1.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **The number of items on a page is fixed for all time.** It isn't. You ship a "20 per page" UI, then product asks for 50, or adds an "items per page" selector, or a mobile client requests 10. Any pagination scheme that hard-codes a page size will outlive that assumption.

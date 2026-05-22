@@ -2,6 +2,8 @@
 
 > CSV has a spec, and almost nothing in the wild obeys it.
 
+**[Sources & credits ↓](#sources)**
+
 CSV looks like the simplest file format imaginable: values, separated by commas, one row per line. That mental model is wrong in roughly every way it can be. RFC 4180 exists, but it is far from definitive and is largely ignored. Eric Raymond went so far as to call CSV "a textbook example of how not to design a textual file format." Here is the list of comfortable assumptions that the real world will happily destroy.
 
 ## The Big Surprises

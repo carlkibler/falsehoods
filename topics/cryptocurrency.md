@@ -2,6 +2,8 @@
 
 > Crypto's clean abstractions hide jagged, irreversible edges.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Bitcoin's supply is not exactly 21 million — and it has briefly been over 184 billion.** The asymptote rounds to 20,999,999.9769 BTC, and miner underpayment lowers it further. Worse, in August 2010 at block #74638 an integer-overflow bug let someone mint two outputs of ~92.2 billion BTC each. The bad chain survived for nearly seven hours (block timestamps 17:02 to 23:53) before a patched majority rejected it.

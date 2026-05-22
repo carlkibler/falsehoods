@@ -2,6 +2,8 @@
 
 > Units don't convert as cleanly as grade-school math promised.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A gallon is not a gallon.** There's the US liquid gallon, the US dry gallon, the Imperial gallon, and the "ten-gallon hat" — which holds nowhere near ten gallons of anything. Pick the wrong one and your volume calculation is silently wrong.

@@ -2,6 +2,8 @@
 
 > A path is not a string, and Windows paths are a different animal entirely.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A path is not a Unicode string.** On Linux, a file path is just any sequence of bytes terminated by a NUL — it has no defined encoding. Decoding it to a Unicode string can corrupt or fail on perfectly valid filenames. (This is the bug that started the whole list: a Python library returning a path as a unicode string.)

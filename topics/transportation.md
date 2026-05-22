@@ -2,6 +2,8 @@
 
 > Aviation data is messier than the planes, and a seat map is not a grid.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Two flights from the same major airline can depart within minutes of each other and share the same flight number.** Not a data error — it actually happens, and your system needs to handle it.

@@ -2,6 +2,8 @@
 
 > YAML will turn your config into numbers, booleans, and the country of Norway.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **"Writing `no` in a list means the string `no`."** Nope. In YAML 1.1, `no` parses as the boolean `false`. A list of Nordic country codes — `dk, fi, is, no, se` — comes back as `["dk", "fi", "is", false, "se"]`. This is so infamous it has a name: the Norway problem.

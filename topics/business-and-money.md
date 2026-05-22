@@ -2,6 +2,8 @@
 
 > Money, prices, and economics break software in expensive ways.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A price is just a number.** Without a currency, a number is meaningless — and even with one, floating-point arithmetic will silently corrupt it. USD 3.1415 is a valid float but an invalid price. The Japanese yen has no decimal positions at all (the sen was removed from circulation in 1953), while the Swiss franc must be rounded to the nearest five centimes.

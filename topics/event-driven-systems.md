@@ -2,6 +2,8 @@
 
 > Messages arrive once, in order, exactly as sent — and other comforting lies.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Events arrive in order.** Even with a single consumer, even when the producer's contract promises ordering, the messages your handler sees may be shuffled. A retry on message #2 can land it after message #3 has already been processed.

@@ -2,6 +2,8 @@
 
 > Null pointers are more cursed than pointers, and pointers are already cursed.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Dereferencing a null pointer immediately crashes the program.** Your first `*(int*)NULL` probably gave you a `Segmentation fault (core dumped)` or `STATUS_ACCESS_VIOLATION` — but tools like Crashpad install a signal handler (Unix) or vectored exception handler (Windows) and print a tidy backtrace before anything dies.

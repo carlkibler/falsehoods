@@ -2,6 +2,8 @@
 
 > The network is not reliable, an IP address has many spellings, and DNS is not what you think.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **`ping 167772673` reaches `10.0.2.1`.** An IPv4 address isn't just four dotted octets — it can be written as a single decimal integer, hex (`0xA000201`), octal (`.010` resolves to `.8`), or with omitted octets (`127.1` → `127.0.0.1`). Input filters that block `10.0.2.1` may pass `167772673` right through.

@@ -2,6 +2,8 @@
 
 > Places don't have one name, borders move, and coordinates lie.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A 6,200-ton building in Zürich was physically moved 60 meters** to make way for railway tracks. Buildings do not move — except when they do, taking their address with them.

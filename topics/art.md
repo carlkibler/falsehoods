@@ -2,6 +2,8 @@
 
 > Art objects refuse every database schema you'd design for them.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Every artwork has an artist.** Plenty don't have one you can name in a column. Some are attributed to "cultural makers" (anonymous traditions, workshops, peoples), others to a manufacturer rather than an individual. Your `artist_id` foreign key needs to be nullable, and probably needs a whole other table.

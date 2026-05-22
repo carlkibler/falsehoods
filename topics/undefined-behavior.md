@@ -2,6 +2,8 @@
 
 > Undefined behavior can cause literally anything — for a broader 'anything' than you imagine.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **UB can "time travel."** It's allowed to corrupt, undo, or prevent the outcomes of code that ran *before* the offending line — not just code that runs after it. The bug you're chasing may have damaged state that already executed.

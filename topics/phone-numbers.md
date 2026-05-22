@@ -2,6 +2,8 @@
 
 > A phone number isn't a number, isn't unique, and won't hold still.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Kosovo has three country calling codes simultaneously.** Depending on when and where you got your number, a Kosovo phone may be reached via Serbia (+381), Slovenia (+386), or Monaco (+377). One territory, three codes, no clean answer.

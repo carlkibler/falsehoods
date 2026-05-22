@@ -2,6 +2,8 @@
 
 > Search is not SELECT … LIKE '%query%'.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Search engines work like databases.** They don't. A database matches rows; a search engine tokenizes, analyzes, ranks, and guesses intent. `WHERE title LIKE '%foo%'` will never give you relevance, stemming, or "did you mean?"

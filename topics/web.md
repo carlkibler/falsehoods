@@ -2,6 +2,8 @@
 
 > HTML, URLs, and REST are all weirder than the spec lets on.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A URL can contain itself, recursively, and still be valid.** `https://https:⁄⁄www.netmeister.org@https://www.netmeister.org/https:⁄⁄www.netmeister.org⁄?https://www.netmeister.org=https://www.netmeister.org#https://www.netmeister.org` is a real, working URL — the inner "https" strings are simultaneously a username, a hostname, a directory name, a query key, a query value, and a fragment.

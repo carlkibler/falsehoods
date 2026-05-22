@@ -2,6 +2,8 @@
 
 > Your name model is wrong, and it's wrong in ways that hurt real people.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **"Null" is a perfectly valid legal surname — and it breaks systems at Bank of America, American Express, and countless others.** Christopher Null, a technology journalist, spent *years* in a cordial email battle with Bank of America because the string "null" in his email address caused their systems to reject, loop, or crash. American Express regularly sent mail to his company addressed only to "Mr." — dropping the surname entirely because it evaluated to nothing.

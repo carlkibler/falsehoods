@@ -2,6 +2,8 @@
 
 > The tidy abstractions you were taught leak everywhere in practice.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **"No space left on device" doesn't mean you're out of disk space.** You could be out of inodes, hitting a filesystem quota, or have a full partition that isn't your data partition. The error message is technically accurate and practically misleading.

@@ -2,6 +2,8 @@
 
 > Even a single door is a bottomless pit of design decisions.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A door is not a door — it is a design problem.** "Are there doors in your game? Can the player open them? Can they open *every* door, or are some decoration?" Liz England's "Door Problem" starts with the most mundane object imaginable and shows it instantly fractures into dozens of decisions someone has to actually make.

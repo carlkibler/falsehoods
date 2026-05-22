@@ -2,6 +2,8 @@
 
 > Fonts lie about their metrics, and case is not a simple toggle.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **Two fonts set to the same size — say, 16px — will not look the same size.** Font size is a box, not a measurement of any visible part of the letterform. What fills that box is entirely up to the type designer.

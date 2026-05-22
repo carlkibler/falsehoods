@@ -2,6 +2,8 @@
 
 > An address isn't a string, isn't a location, and sometimes isn't even necessary.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **A building can have a negative house number.** "Minusone Priory Road, Newbury" is a real, deliverable UK address. The lowest confirmed number in the HM Land Registry data is Minus Three, Chalton Heights, Chalton, Luton. Someone in Stroud has Minus Two.

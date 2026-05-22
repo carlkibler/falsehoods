@@ -2,6 +2,8 @@
 
 > Unicode is not a character set, a character is not a code point, and string length is a lie.
 
+**[Sources & credits ↓](#sources)**
+
 ## The Big Surprises
 
 - **There ain't no such thing as plain text.** A string of bytes is meaningless until you know its encoding. The classic symptom: an email from your friends in Bulgaria arrives as `???? ?????? ??? ????`, or an American résumé sent to Israel turns up as `r sum s` because code point 130 is `é` on one machine and the Hebrew letter Gimel on another.

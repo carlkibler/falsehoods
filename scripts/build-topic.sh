@@ -290,8 +290,21 @@ RESULT=$(~/.claude/bin/agent "$MODEL" --file "$PACKET" --max-tokens 32000 --time
   "$SYNTHESIS_PROMPT")
 
 mkdir -p "$TOPICS_DIR"
-# Strip any leading whitespace/blank lines the model may emit before the # heading.
-CLEAN_RESULT=$(printf '%s' "$RESULT" | python3 -c "import sys; print(sys.stdin.read().lstrip())")
+# Clean leading whitespace, and insert a jump-to-Sources link right under the
+# hook (so readers see from the top that sources/credits exist). Deterministic,
+# not model-written, so the #sources anchor is always correct.
+CLEAN_RESULT=$(printf '%s' "$RESULT" | python3 -c "
+import sys
+lines = sys.stdin.read().lstrip().split('\n')
+out, done = [], False
+for l in lines:
+    out.append(l)
+    if not done and l.lstrip().startswith('>'):
+        out.append('')
+        out.append('**[Sources & credits ↓](#sources)**')
+        done = True
+print('\n'.join(out))
+")
 # Sources section was generated deterministically during fetch (original + archived copy links).
 {
   echo "$CLEAN_RESULT"
