@@ -21,7 +21,8 @@ prompts/
   <format>.md          add more for other output types (presentation, cheatsheet, …)
 scripts/
   build-topic.sh       fetch sources → synthesize → write topics/<slug>.md
-  build-all.sh         run build-topic.sh across every slug (skips existing unless --force)
+  build-all.sh         run build-topic.sh across every slug (skips existing unless --force); regenerates README at the end
+  build-readme.py      regenerate README.md index from topics.json (edit GROUPS in it to reorder/regroup)
   propose-topic.py     pull candidate sources for a topic out of the awesome-falsehood list
 topics/<slug>.md       the deliverables
 archive/<slug>/        COMMITTED Markdown copies of each source (attributed) — preservation
@@ -40,11 +41,14 @@ Two separate principles drive the design:
 
 Don't WebFetch sources into your own context to "help" — that defeats the purpose and burns tokens. The only time you touch a page directly is the Playwright fallback below.
 
-**2. Cheap models for research, strong models for writing.** Use cheap/deterministic tooling for the *discovery* work (source listing via `propose-topic.py`, fetching). But the *synthesis* — merging four messy sources into one coherent, high-quality doc — wants a strong, high-cohesion model. Cheap models get disordered on multi-source packets well before their advertised context window, producing repetition and dropped points. This is a quality task, usually run once per topic, so spend on it:
-- **Default `--model sonnet`** — strong cohesion, the right baseline.
-- **`--model opus` or `--frontier`** — for maximum quality.
-- **`--model kimi-2.6`** — only to economize on a simple/short topic.
-- If a packet is large (many or long sources), prefer a stronger model or trim sources; don't hand a giant packet to a cheap model and hope.
+**2. Cheap models for research, strong models for writing.** Use cheap/deterministic tooling for the *discovery* work (source listing via `propose-topic.py`, fetching). But the *synthesis* — merging messy sources into one coherent, high-quality doc — wants a strong, high-cohesion model. Cheap models get disordered on multi-source packets well before their advertised context window, producing repetition and dropped points. This is a quality task, usually run once per topic, so spend on it.
+
+Two ways to run synthesis — pick based on whose budget pays:
+
+- **(a) Via the `agent` CLI (OpenRouter, pay-per-token).** `build-topic.sh` does this end to end: `--model sonnet` (default, strong baseline), `--model opus`/`--frontier` (max quality), `--model kimi-2.6` (economize). Fully automated; costs OpenRouter credits (~$0.20/topic for sonnet).
+- **(b) Via the orchestrator's own model / subagents (the harness subscription, $0 API).** Run `build-topic.sh <slug> --dry-run` to fetch + archive + build `sources/<slug>/_packet.md` and `sources/<slug>/_sources.md` *without* calling any paid model. Then synthesize the doc yourself — or, to keep your context clean and parallelize, dispatch a subagent per topic that: reads the packet, writes the doc to `topics/<slug>.md` following the template in `prompts/`, and appends `sources/<slug>/_sources.md` verbatim. This is how the bulk of this repo was written. Subagents each get their own context, so a wave of ~6 in parallel is comfortable. Remember to insert the jump-to-Sources link under the hook (build-topic.sh does this automatically; the subagent path doesn't — re-run the small insertion, or have the subagent add `**[Sources & credits ↓](#sources)**` right under the `>` hook line).
+
+If a packet is large (many or long sources), prefer a stronger model or trim sources; don't hand a giant packet to a cheap model and hope.
 
 ## Workflow
 
@@ -107,7 +111,7 @@ If it's off, adjust a knob and rebuild (see "Adjusting knobs"). Synthesis is che
 
 ### 5. Fan out
 
-Repeat per topic. Update the topic index table in `README.md`. Commit.
+Repeat per topic. Then regenerate the index with `scripts/build-readme.py` (or just run `scripts/build-all.sh`, which regenerates it at the end). To reorder or regroup the index, edit the `GROUPS` list at the top of `build-readme.py` — a new topic not listed there still appears, under a "More" group, with a warning. Commit `topics.json`, `topics/`, `archive/`, and `README.md`.
 
 ## Adjusting knobs (the reason this is a repo, not a one-off)
 

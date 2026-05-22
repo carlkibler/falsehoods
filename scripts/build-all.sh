@@ -48,6 +48,12 @@ for slug in "${SLUGS[@]}"; do
   fi
 done
 
+if [[ "$DRY_RUN" -eq 0 ]]; then
+  echo ""
+  echo "regenerating README index..."
+  python3 "$SCRIPT_DIR/build-readme.py" || echo "  (build-readme.py failed; run it manually)"
+fi
+
 echo ""
 echo "================================================"
 echo "build-all done: built=$built skipped=$skipped failed=$failed truncation-warnings=$warned"

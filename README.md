@@ -76,7 +76,7 @@ The "falsehoods programmers believe about X" genre is sharp and scattered: dozen
 
 Cheap models find and fetch the sources; a strong model does the writing. Reference lists and the archived source copies are generated, not hand-tended. The whole pipeline is a reusable skill: [`skills/falsehoods-doc-builder`](skills/falsehoods-doc-builder/SKILL.md).
 
-Add a topic to [`topics.json`](topics.json), run `scripts/build-topic.sh <slug>`, done. Sources rot, so each one is also saved under [`archive/`](archive/) with credit and a link home.
+Add a topic to [`topics.json`](topics.json), run `scripts/build-topic.sh <slug>`, then `scripts/build-readme.py` to refresh this index. Sources rot, so each one is also saved under [`archive/`](archive/) with credit and a link home.
 
 ## Credit
 
